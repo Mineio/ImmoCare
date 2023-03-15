@@ -1,6 +1,6 @@
-multiPage/react-website/node_modules
+ImmoCare/react-website/node_modules
 .DS_Store
-multiPage/server/node_modules
+ImmoCare/server/node_modules
 .idea
-multiPage/server/node_modules
+ImmoCare/server/node_modules
 
