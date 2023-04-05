@@ -2,8 +2,7 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import About from "./pages/about";
-import Blogs from "./pages/blogs";
+import Home from "./pages/home";
 import SignUp from "./pages/signup";
 import Contact from "./pages/contact";
 
@@ -12,10 +11,9 @@ return (
 	<Router>
 	<Navbar />
 	<Routes>
-		<Route exact path='/' element={<SignUp />} />
-		<Route path='/about' element={<About/>} />
+		<Route exact path='/' element={<Home />} />
+		<Route path='/Home' element={<Home/>} />
 		<Route path='/contact' element={<Contact/>} />
-		<Route path='/blogs' element={<Blogs/>} />
 		<Route path='/sign-up' element={<SignUp/>} />
 	</Routes>
 	</Router>
