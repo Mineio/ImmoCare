@@ -7,16 +7,16 @@ const Navbar = () => {
         <>
             <Nav>
                 <NavMenu>
-                    <NavLink to="/home" activeStyle>
+                    <NavLink to="/home" activestyle="true">
                         Home
                     </NavLink>
-                    <NavLink to="/contact" activeStyle>
+                    <NavLink to="/contact" activestyle="true">
                         Contact Us
                     </NavLink>
-                    <NavLink to="/sign-in" activeStyle>
+                    <NavLink to="/sign-in" activestyle="true">
                         Log in
                     </NavLink>
-                    <NavLink to="/sign-up" activeStyle>
+                    <NavLink to="/sign-up" activestyle="true">
                         Sign Up
                     </NavLink>
                 </NavMenu>

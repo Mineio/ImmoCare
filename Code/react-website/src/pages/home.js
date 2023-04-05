@@ -21,11 +21,11 @@ const Home = () => {
             <div className="listProperties">
                 <table>
                     <tbody>
-                    {property.map((val) => {
+                    {property.map((val, key) => {
                         return (
-                            <tr>
-                                {/* Nach den val. kommen noch die richtigen Daten heran*/}
-                                <td id="">{/*val.*/}</td>
+                            <tr key={key}>
+                                {/* Hier kommen noch die richtigen values heran */}
+                                <td id="">{val.name}</td>
                                 <td id="">{/*val.*/}</td>
                                 <td id="">{/*val.*/}</td>
                                 <td id="">{/*val.*/}</td>
