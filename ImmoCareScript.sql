@@ -1,11 +1,11 @@
 /*--------------------------------------------------------------
 DBProjektScript
-Dieses Script erstellt die Datenbank, welche wir für unser NFTprojekt benötigen.
-Author: Noel Keller, Bleron Regja
+Dieses Script erstellt die Datenbank, welche wir für unser ImmoCare Projekt benötigen.
+Author: Noel Keller 
 Date:  19.12.22
 Version		Date		Who 	Changes
-1.0         19.12.22    Kel 	created
-Copyright © 2018  Noel Keller & Bleron Regja,Kantonsschule Frauenfeld, Switzerland. All rights reserved
+1.0         30.3.23    Kel 	created
+Copyright © 2018  Noel Keller Kantonsschule Frauenfeld, Switzerland. All rights reserved
 ----------------------------------------------------------------*/
 -- -----------------------------------------------------
 -- Schema mydb
