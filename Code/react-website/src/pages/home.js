@@ -21,7 +21,7 @@ const Home = () => {
       <div className="searchbar"> Searchbar</div>
       <div className="listProperties">
         <button onClick={() => setButtonPopup(true)}>Open Popup</button>
-        <PopUp trigger={buttonPopup}>
+        <PopUp trigger={buttonPopup} setTrigger={setButtonPopup}>
           <h1>MyPopup</h1>
         </PopUp>
         <table>
