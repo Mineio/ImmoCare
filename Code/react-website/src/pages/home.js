@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-
+import PopUp from "../components/Popup/PopUp";
 const Home = () => {
   const [property, setProperty] = useState([]);
+  const [buttonPopup, setButtonPopup] = useState(false);
 
   useEffect(() => {
     selectProperties();
@@ -19,6 +20,10 @@ const Home = () => {
     <div className="properties">
       <div className="searchbar"> Searchbar</div>
       <div className="listProperties">
+        <button onClick={() => setButtonPopup(true)}>Open Popup</button>
+        <PopUp trigger={buttonPopup}>
+          <h1>MyPopup</h1>
+        </PopUp>
         <table>
           <tbody>
             {property.map((val, key) => {
@@ -30,7 +35,6 @@ const Home = () => {
                   <td id="">{/*val.*/}</td>
                   <td id="">{/*val.*/}</td>
                   <td id="">{/*val.*/}</td>
-                  <div class="berreich">Hallo Welt</div>
                 </tr>
               );
             })}
