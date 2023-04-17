@@ -8,14 +8,14 @@ app.use(express.json());
 
 const db = mysql.createConnection({
     // using testDatabase
-    user: "root",
-    host: "127.0.0.1",
-    password: "",
-    database: "test",
+    user: "SC_ICaro",
+    host: "i-kf.ch",
+    password: "9eZt?7aK",
+    database: "SC_ImmoCareDB",
 });
 
 app.get("/getProperties", (req, res) => {
-    db.query("SELECT * FROM test",
+    db.query("SELECT * FROM TLiegenschaften",
         (err, result) => {
             if (err) {
                 console.log(err);
