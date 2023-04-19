@@ -23,7 +23,7 @@ app.get("/getProperties", (req, res) => {
     }
   });
 });
-
+/*
 app.get("/getData", (res) => {
   db.query("SELECT * FROM TLiegenschaften", (err, result) => {
     if (err) {
@@ -33,6 +33,7 @@ app.get("/getData", (res) => {
     }
   });
 });
+*/
 app.listen(3001, () => {
   console.log("Server is running");
 });

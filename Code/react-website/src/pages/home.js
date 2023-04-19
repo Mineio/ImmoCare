@@ -1,10 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import Axios from "axios";
-import PopUp from "../components/Popup/PopUp";
+import PopUp from "../components/Popup/popUp";
+import { useState } from "react";
+
 const Home = () => {
-  const [property, setProperty] = useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [property, setProperty] = useState([]);
 
   const selectProperties = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
