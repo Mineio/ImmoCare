@@ -44,6 +44,75 @@
   }
 }
 
-.searchbar div{
+.searchbarTop{
+  margin-top: 50px;
   display:flex;
+}
+
+.searchbarTop div{
+  padding-right: 50px;
+}
+
+.searchbarTop div form{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.searchbarBottom{
+  margin-top: 20px;
+  display:flex;
+}
+
+.searchbarBottom div{
+  padding-right: 50px;
+}
+
+.searchbarBottom div form{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+table{ 
+  margin-top: 30px;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  text-align: center;
+}
+
+tbody td{
+  width: auto;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+  padding-left: 50px;
+  position: static;
+}
+
+tbody td:nth-child(1){
+  border-left: 2px solid black;
+}
+
+tbody td:last-child{
+  border-right: 2px solid black;
+}
+
+.properties{
+  margin-left: 130px;
+}
+
+tbody tr:nth-child(odd){
+  background-color: rgb(205, 205, 205);
+}
+
+button{
+  width: 170px;
+  height: 40px;
+}
+
+tbody tr:hover{
+  background-color: rgb(166, 166, 166)
 }
