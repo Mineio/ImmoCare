@@ -6,10 +6,6 @@ const Home = () => {
   const [property, setProperty] = useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  useEffect(() => {
-    selectProperties();
-  }, []);
-
   const selectProperties = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);

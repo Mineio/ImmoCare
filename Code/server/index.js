@@ -7,25 +7,32 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-    // using testDatabase
-    user: "root",
-    host: "127.0.0.1",
-    password: "",
-    database: "test",
+  // using testDatabase
+  user: "root",
+  host: "127.0.0.1",
+  password: "",
+  database: "test",
 });
 
 app.get("/getProperties", (req, res) => {
-    db.query("SELECT * FROM test",
-        (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(result);
-            }
-        }
-    );
-})
+  db.query("SELECT * FROM test", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
+app.get("/getData", (res) => {
+  db.query("SELECT * FROM TLiegenschaften", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 app.listen(3001, () => {
-    console.log("Server is running");
+  console.log("Server is running");
 });
