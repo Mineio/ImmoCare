@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
+
 const Home = () => {
   const [property, setProperty] = useState([]);
 
@@ -13,6 +14,14 @@ const Home = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
     });
+  };
+
+  const navigateToProperty = (clickedLiegenschaft) => {
+    return () => {
+      console.log(clickedLiegenschaft.LiegTyp);
+      localStorage.setItem('property', JSON.stringify(clickedLiegenschaft));
+      window.location.replace("../clickedProperty");
+    };
   };
 
   return (
@@ -136,7 +145,7 @@ const Home = () => {
           <tbody>
             {property.map((val, key) => {
               return (
-                <tr key={key}>
+                <tr onClick={navigateToProperty(val)} key={key}>
                   <td id="liegNR">{val.LiegTyp}</td>
                   <td id="liegKosten">{"Kosten Haus"}</td>
                   <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
