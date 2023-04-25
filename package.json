@@ -1,0 +1,19 @@
+{
+  "name": "immocare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mineio/ImmoCare.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mineio/ImmoCare/issues"
+  },
+  "homepage": "https://github.com/Mineio/ImmoCare#readme"
+}

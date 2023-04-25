@@ -6,6 +6,15 @@ import Axios from "axios";
 const Home = () => {
   const [property, setProperty] = useState([]);
 
+  const [grundStückB, setgrundStückB] = useState([]);
+  const [nutzFlB, setnutzFlB] = useState([]);
+  const [ausbauSt, setausbauSt] = useState([]);
+  const [zustand, setzustand] = useState([]);
+  const [chfVon, setchfVon] = useState([]);
+  const [chfBis, setchfBis] = useState([]);
+  const [baujahrVon, setbaujahrVon] = useState([]);
+  const [Baujahrbis, setBaujahrbis] = useState([]);
+
   useEffect(() => {
     selectProperties();
   }, []);
@@ -36,7 +45,10 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="grundStückB">Grundstückfläche bis</label>
-            <select id="grundStückB">
+            <select
+              id="grundStückB"
+              onChange={(e) => setgrundStückB(e.target.value)}
+            >
               <option value="default">beliebig</option>
               <option value="300">300m²</option>
               <option value="600">600m²</option>
@@ -50,7 +62,7 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="nutzFlB">Nutzfläche bis</label>
-            <select id="nutzFlB">
+            <select id="nutzFlB" onChange={(e) => setnutzFlB(e.target.value)}>
               <option value="default">beliebig</option>
               <option value="200">200m²</option>
               <option value="400">400m²</option>
@@ -64,7 +76,7 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="ausbauSt">Ausbaustand</label>
-            <select id="ausbauSt">
+            <select id="ausbauSt" onChange={(e) => setausbauSt(e.target.value)}>
               <option value="default">beliebig</option>
               <option value="einfach">einfach</option>
               <option value="normal">normal</option>
@@ -75,7 +87,7 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="zustand">Zustand</label>
-            <select id="zustand">
+            <select id="zustand" onChange={(e) => setzustand(e.target.value)}>
               <option value="default">beliebig</option>
               <option value="normal">normal</option>
               <option value="neuwertig">neuwertig</option>
@@ -88,19 +100,32 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="chfVon">CHF von</label>
-            <input type="number" id="chfVon" placeholder="Beliebig" />
+            <input
+              type="number"
+              id="chfVon"
+              placeholder="Beliebig"
+              onChange={(e) => setchfVon(e.target.value)}
+            />
           </form>
         </div>
         <div>
           <form>
             <label htmlFor="chfBis">CHF bis</label>
-            <input type="number" id="chfBis" placeholder="Beliebig" />
+            <input
+              type="number"
+              id="chfBis"
+              placeholder="Beliebig"
+              onChange={(e) => setchfBis(e.target.value)}
+            />
           </form>
         </div>
         <div>
           <form>
             <label htmlFor="baujahrVon">Baujahr von</label>
-            <select id="baujahrVon">
+            <select
+              id="baujahrVon"
+              onChange={(e) => setbaujahrVon(e.target.value)}
+            >
               <option value="default">beliebig</option>
               <option value="1800">1800</option>
               <option value="1850">1850</option>
@@ -113,8 +138,11 @@ const Home = () => {
         </div>
         <div>
           <form>
-            <label htmlFor="baujahrBis">Baujahr bis</label>
-            <select id="baujahrBis">
+            <label htmlFor="">Baujahr bis</label>
+            <select
+              id="baujahrBis"
+              onChange={(e) => setBaujahrbis(e.target.value)}
+            >
               <option value="default">beliebig</option>
               <option value="1800">1800</option>
               <option value="1850">1850</option>
@@ -143,7 +171,10 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {property.map((val, key) => {
+            {property.filter((property) => {
+                return search.toLowerCase();
+              })
+              .map((val, key) => {
               return (
                 <tr onClick={navigateToProperty(val)} key={key}>
                   <td id="liegNR">{val.LiegTyp}</td>
