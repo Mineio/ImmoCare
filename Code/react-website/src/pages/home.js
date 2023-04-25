@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
-
 const Home = () => {
   const [property, setProperty] = useState([]);
 
@@ -14,6 +13,8 @@ const Home = () => {
   const [chfBis, setchfBis] = useState([]);
   const [baujahrVon, setbaujahrVon] = useState([]);
   const [Baujahrbis, setBaujahrbis] = useState([]);
+  const [suchen, setsuchen] = useState(false);
+  const [Liegenschaftstyp, setLiegenschaftstyp] = useState([]);
 
   useEffect(() => {
     selectProperties();
@@ -28,7 +29,7 @@ const Home = () => {
   const navigateToProperty = (clickedLiegenschaft) => {
     return () => {
       console.log(clickedLiegenschaft.LiegTyp);
-      localStorage.setItem('property', JSON.stringify(clickedLiegenschaft));
+      localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
       window.location.replace("../clickedProperty");
     };
   };
@@ -39,7 +40,12 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="wordsearch">Liegenschaftstyp</label>
-            <input type="text" id="wordsearch" placeholder="Suchen" />
+            <input
+              type="text"
+              id="wordsearch"
+              placeholder="Suchen"
+              onChange={(e) => setLiegenschaftstyp(e.target.value)}
+            />
           </form>
         </div>
         <div>
@@ -154,7 +160,9 @@ const Home = () => {
           </form>
         </div>
         <div>
-          <button type="">Suchen</button>
+          <button type="" onClick={(e) => (setsuchen = true)}>
+            Suchen
+          </button>
         </div>
       </div>
       <div className="listProperties">
@@ -171,22 +179,32 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {property.filter((property) => {
-                return search.toLowerCase();
+            {property
+              .filter((val) => {
+                if (suchen) {
+                  return;
+                  property.LiegBaujahr < Baujahrbis &&
+                    property.LiegBaujahr > baujahrVon;
+                  property.LiegGrundstückfläche > grundStückB;
+                  property.LiegNutzfläche > nutzFlB;
+                  property.LiegAusbaustandart = ausbauSt;
+                  property.LiegZustand = zustand;
+                  property.LiegTyp = Liegenschaftstyp;
+                }
               })
               .map((val, key) => {
-              return (
-                <tr onClick={navigateToProperty(val)} key={key}>
-                  <td id="liegNR">{val.LiegTyp}</td>
-                  <td id="liegKosten">{"Kosten Haus"}</td>
-                  <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
-                  <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
-                  <td id="liegZustand">{val.LiegZustand}</td>
-                  <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
-                  <td id="">{val.LiegBaujahr}</td>
-                </tr>
-              );
-            })}
+                return (
+                  <tr onClick={navigateToProperty(val)} key={key}>
+                    <td id="liegNR">{val.LiegTyp}</td>
+                    <td id="liegKosten">{"Kosten Haus"}</td>
+                    <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
+                    <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
+                    <td id="liegZustand">{val.LiegZustand}</td>
+                    <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
+                    <td id="">{val.LiegBaujahr}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
