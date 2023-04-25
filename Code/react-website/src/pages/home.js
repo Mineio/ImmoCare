@@ -20,6 +20,28 @@ const Home = () => {
     selectProperties();
   }, []);
 
+  useEffect(() => {
+    selectNewProperties();
+  }, [suchen]);
+
+  const selectNewProperties = () => {
+    Axios.get("http://localhost:3001/getNewProperties", {
+      params: {
+        grundStückB,
+        nutzFlB,
+        ausbauSt,
+        zustand,
+        chfVon,
+        chfBis,
+        baujahrVon,
+        Baujahrbis,
+        Liegenschaftstyp,
+      },
+    }).then((response) => {
+      setProperty(response.data);
+    });
+  };
+
   const selectProperties = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
@@ -160,7 +182,7 @@ const Home = () => {
           </form>
         </div>
         <div>
-          <button type="" onClick={(e) => (setsuchen = true)}>
+          <button type="" onClick={(e) => setsuchen(true)}>
             Suchen
           </button>
         </div>
@@ -180,18 +202,22 @@ const Home = () => {
           </thead>
           <tbody>
             {property
-              .filter((val) => {
+              /*.filter((property) => {
                 if (suchen) {
-                  return;
-                  property.LiegBaujahr < Baujahrbis &&
-                    property.LiegBaujahr > baujahrVon;
-                  property.LiegGrundstückfläche > grundStückB;
-                  property.LiegNutzfläche > nutzFlB;
-                  property.LiegAusbaustandart = ausbauSt;
-                  property.LiegZustand = zustand;
-                  property.LiegTyp = Liegenschaftstyp;
+                  return (
+                    property.LiegBaujahr <= Baujahrbis &&
+                    property.LiegBaujahr >= baujahrVon &&
+                    property.LiegGrundstückfläche <= grundStückB &&
+                    property.LiegNutzfläche <= nutzFlB &&
+                    property.LiegAusbaustandart === ausbauSt &&
+                    property.LiegZustand === zustand &&
+                    property.LiegTyp === Liegenschaftstyp
+                  );
+                } else {
+                  return true;
                 }
               })
+*/
               .map((val, key) => {
                 return (
                   <tr onClick={navigateToProperty(val)} key={key}>
