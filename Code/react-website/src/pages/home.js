@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
+
 const Home = () => {
   const [property, setProperty] = useState([]);
 
@@ -22,6 +23,14 @@ const Home = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
     });
+  };
+
+  const navigateToProperty = (clickedLiegenschaft) => {
+    return () => {
+      console.log(clickedLiegenschaft.LiegTyp);
+      localStorage.setItem('property', JSON.stringify(clickedLiegenschaft));
+      window.location.replace("../clickedProperty");
+    };
   };
 
   return (
@@ -162,23 +171,22 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {property
-              .filter((property) => {
+            {property.filter((property) => {
                 return search.toLowerCase();
               })
               .map((val, key) => {
-                return (
-                  <tr key={key}>
-                    <td id="liegNR">{val.LiegTyp}</td>
-                    <td id="liegKosten">{"Kosten Haus"}</td>
-                    <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
-                    <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
-                    <td id="liegZustand">{val.LiegZustand}</td>
-                    <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
-                    <td id="">{val.LiegBaujahr}</td>
-                  </tr>
-                );
-              })}
+              return (
+                <tr onClick={navigateToProperty(val)} key={key}>
+                  <td id="liegNR">{val.LiegTyp}</td>
+                  <td id="liegKosten">{"Kosten Haus"}</td>
+                  <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
+                  <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
+                  <td id="liegZustand">{val.LiegZustand}</td>
+                  <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
+                  <td id="">{val.LiegBaujahr}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

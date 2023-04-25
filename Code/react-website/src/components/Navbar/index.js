@@ -6,8 +6,11 @@ const Navbar = () => {
     <>
       <Nav>
         <NavMenu>
-          <NavLink to="/" activestyle="true">
-            Log out
+          <NavLink to="/home" activestyle="true">
+            Go Back
+          </NavLink>
+          <NavLink to="/clickedProperty" activestyle="true">
+            Last Property
           </NavLink>
         </NavMenu>
       </Nav>
