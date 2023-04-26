@@ -23,7 +23,7 @@ app.get("/getProperties", (req, res) => {
     }
   });
 });
-
+/*
 app.get("/getNewProperties", (req, res) => {
   db.query(
     "SELECT * FROM TLiegenschaften WHERE  LiegBaujahr >= ${baujahrVon} AND LiegBaujahr <= ${Baujahrbis} AND LiegGrundstückfläche <= ${grundStückB} AND LiegNutzfläche <= ${nutzFlB} AND LiegAusbaustandart = '${ausbauSt}' AND LiegZustand = '${zustand}' AND    LiegTyp = '${Liegenschaftstyp}' AND LiegPreis >= ${chfVon} AND LiegPreis <= ${chfBis}",
@@ -36,7 +36,7 @@ app.get("/getNewProperties", (req, res) => {
     }
   );
 });
-
+*/
 app.listen(3001, () => {
   console.log("Server is running");
 });

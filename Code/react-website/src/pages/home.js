@@ -5,21 +5,22 @@ import Axios from "axios";
 const Home = () => {
   const [property, setProperty] = useState([]);
 
-  const [grundStückB, setgrundStückB] = useState([]);
-  const [nutzFlB, setnutzFlB] = useState([]);
-  const [ausbauSt, setausbauSt] = useState([]);
-  const [zustand, setzustand] = useState([]);
-  const [chfVon, setchfVon] = useState([]);
-  const [chfBis, setchfBis] = useState([]);
-  const [baujahrVon, setbaujahrVon] = useState([]);
-  const [Baujahrbis, setBaujahrbis] = useState([]);
-  const [suchen, setsuchen] = useState(false);
-  const [Liegenschaftstyp, setLiegenschaftstyp] = useState([]);
+  const [grundStückB, setgrundStückB] = useState("beliebig");
+  const [nutzFlB, setnutzFlB] = useState("beliebig");
+  const [ausbauSt, setausbauSt] = useState("beliebig");
+  const [zustand, setzustand] = useState("beliebig");
+
+  const [chfVon, setchfVon] = useState("beliebig");
+  const [chfBis, setchfBis] = useState("beliebig");
+
+  const [baujahrVon, setbaujahrVon] = useState("beliebig");
+  const [Baujahrbis, setBaujahrbis] = useState("beliebig");
+  const [Liegenschaftstyp, setLiegenschaftstyp] = useState("beliebig");
 
   useEffect(() => {
     selectProperties();
   }, []);
-
+  /*
   useEffect(() => {
     selectNewProperties();
   }, [suchen]);
@@ -41,7 +42,7 @@ const Home = () => {
       setProperty(response.data);
     });
   };
-
+*/
   const selectProperties = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
@@ -181,11 +182,7 @@ const Home = () => {
             </select>
           </form>
         </div>
-        <div>
-          <button type="" onClick={(e) => setsuchen(true)}>
-            Suchen
-          </button>
-        </div>
+        <div></div>
       </div>
       <div className="listProperties">
         <table>
@@ -202,22 +199,40 @@ const Home = () => {
           </thead>
           <tbody>
             {property
-              /*.filter((property) => {
-                if (suchen) {
+              .filter((property) => {
+                // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
+                if (
+                  Baujahrbis !== "beliebig" ||
+                  baujahrVon !== "beliebig" ||
+                  grundStückB !== "beliebig" ||
+                  nutzFlB !== "beliebig" ||
+                  ausbauSt !== "beliebig" ||
+                  zustand !== "beliebig" ||
+                  Liegenschaftstyp !== "beliebig"
+                ) {
+                  // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
                   return (
-                    property.LiegBaujahr <= Baujahrbis &&
-                    property.LiegBaujahr >= baujahrVon &&
-                    property.LiegGrundstückfläche <= grundStückB &&
-                    property.LiegNutzfläche <= nutzFlB &&
-                    property.LiegAusbaustandart === ausbauSt &&
-                    property.LiegZustand === zustand &&
-                    property.LiegTyp === Liegenschaftstyp
+                    (Baujahrbis === "beliebig" ||
+                      property.LiegBaujahr <= Baujahrbis) &&
+                    (baujahrVon === "beliebig" ||
+                      property.LiegBaujahr >= baujahrVon) &&
+                    (grundStückB === "beliebig" ||
+                      property.LiegGrundstückfläche <= grundStückB) &&
+                    (nutzFlB === "beliebig" ||
+                      property.LiegNutzfläche <= nutzFlB) &&
+                    (ausbauSt === "beliebig" ||
+                      property.LiegAusbaustandart === ausbauSt) &&
+                    (zustand === "beliebig" ||
+                      property.LiegZustand === zustand) &&
+                    (Liegenschaftstyp === "beliebig" ||
+                      property.LiegTyp === Liegenschaftstyp)
                   );
                 } else {
+                  // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
                   return true;
                 }
               })
-*/
+
               .map((val, key) => {
                 return (
                   <tr onClick={navigateToProperty(val)} key={key}>
