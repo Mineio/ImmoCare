@@ -23,6 +23,7 @@ app.get("/getProperties", (req, res) => {
     }
   });
 });
+
 /*
 app.get("/getNewProperties", (req, res) => {
   db.query(
@@ -37,6 +38,7 @@ app.get("/getNewProperties", (req, res) => {
   );
 });
 */
+
 app.listen(3001, () => {
   console.log("Server is running");
 });
