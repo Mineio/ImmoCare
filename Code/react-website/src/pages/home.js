@@ -2,23 +2,47 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
-
 const Home = () => {
   const [property, setProperty] = useState([]);
 
-  const [grundStückB, setgrundStückB] = useState([]);
-  const [nutzFlB, setnutzFlB] = useState([]);
-  const [ausbauSt, setausbauSt] = useState([]);
-  const [zustand, setzustand] = useState([]);
-  const [chfVon, setchfVon] = useState([]);
-  const [chfBis, setchfBis] = useState([]);
-  const [baujahrVon, setbaujahrVon] = useState([]);
-  const [Baujahrbis, setBaujahrbis] = useState([]);
+  const [grundStückB, setgrundStückB] = useState("beliebig");
+  const [nutzFlB, setnutzFlB] = useState("beliebig");
+  const [ausbauSt, setausbauSt] = useState("beliebig");
+  const [zustand, setzustand] = useState("beliebig");
+
+  const [chfVon, setchfVon] = useState("beliebig");
+  const [chfBis, setchfBis] = useState("beliebig");
+
+  const [baujahrVon, setbaujahrVon] = useState("beliebig");
+  const [Baujahrbis, setBaujahrbis] = useState("beliebig");
+  const [Liegenschaftstyp, setLiegenschaftstyp] = useState("beliebig");
 
   useEffect(() => {
     selectProperties();
   }, []);
+  /*
+  useEffect(() => {
+    selectNewProperties();
+  }, [suchen]);
 
+  const selectNewProperties = () => {
+    Axios.get("http://localhost:3001/getNewProperties", {
+      params: {
+        grundStückB,
+        nutzFlB,
+        ausbauSt,
+        zustand,
+        chfVon,
+        chfBis,
+        baujahrVon,
+        Baujahrbis,
+        Liegenschaftstyp,
+      },
+    }).then((response) => {
+      setProperty(response.data);
+    });
+  };
+*/
   const selectProperties = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
@@ -28,7 +52,7 @@ const Home = () => {
   const navigateToProperty = (clickedLiegenschaft) => {
     return () => {
       console.log(clickedLiegenschaft.LiegTyp);
-      localStorage.setItem('property', JSON.stringify(clickedLiegenschaft));
+      localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
       window.location.replace("../clickedProperty");
     };
   };
@@ -39,7 +63,12 @@ const Home = () => {
         <div>
           <form>
             <label htmlFor="wordsearch">Liegenschaftstyp</label>
-            <input type="text" id="wordsearch" placeholder="Suchen" />
+            <input
+              type="text"
+              id="wordsearch"
+              placeholder="Suchen"
+              onChange={(e) => setLiegenschaftstyp(e.target.value)}
+            />
           </form>
         </div>
         <div>
@@ -153,9 +182,7 @@ const Home = () => {
             </select>
           </form>
         </div>
-        <div>
-          <button type="">Suchen</button>
-        </div>
+        <div></div>
       </div>
       <div className="listProperties">
         <table>
@@ -171,22 +198,54 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {property.filter((property) => {
-                return search.toLowerCase();
+            {property
+              .filter((property) => {
+                // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
+                if (
+                  Baujahrbis !== "beliebig" ||
+                  baujahrVon !== "beliebig" ||
+                  grundStückB !== "beliebig" ||
+                  nutzFlB !== "beliebig" ||
+                  ausbauSt !== "beliebig" ||
+                  zustand !== "beliebig" ||
+                  Liegenschaftstyp !== "beliebig"
+                ) {
+                  // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
+                  return (
+                    (Baujahrbis === "beliebig" ||
+                      property.LiegBaujahr <= Baujahrbis) &&
+                    (baujahrVon === "beliebig" ||
+                      property.LiegBaujahr >= baujahrVon) &&
+                    (grundStückB === "beliebig" ||
+                      property.LiegGrundstückfläche <= grundStückB) &&
+                    (nutzFlB === "beliebig" ||
+                      property.LiegNutzfläche <= nutzFlB) &&
+                    (ausbauSt === "beliebig" ||
+                      property.LiegAusbaustandart === ausbauSt) &&
+                    (zustand === "beliebig" ||
+                      property.LiegZustand === zustand) &&
+                    (Liegenschaftstyp === "beliebig" ||
+                      property.LiegTyp === Liegenschaftstyp)
+                  );
+                } else {
+                  // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
+                  return true;
+                }
               })
+
               .map((val, key) => {
-              return (
-                <tr onClick={navigateToProperty(val)} key={key}>
-                  <td id="liegNR">{val.LiegTyp}</td>
-                  <td id="liegKosten">{"Kosten Haus"}</td>
-                  <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
-                  <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
-                  <td id="liegZustand">{val.LiegZustand}</td>
-                  <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
-                  <td id="">{val.LiegBaujahr}</td>
-                </tr>
-              );
-            })}
+                return (
+                  <tr onClick={navigateToProperty(val)} key={key}>
+                    <td id="liegNR">{val.LiegTyp}</td>
+                    <td id="liegKosten">{"Kosten Haus"}</td>
+                    <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
+                    <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
+                    <td id="liegZustand">{val.LiegZustand}</td>
+                    <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
+                    <td id="">{val.LiegBaujahr}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
