@@ -23,22 +23,20 @@ app.get("/getProperties", (req, res) => {
     }
   });
 });
-
 /*
-app.get("/getNewProperties", (req, res) => {
-  db.query(
-    "SELECT * FROM TLiegenschaften WHERE  LiegBaujahr >= ${baujahrVon} AND LiegBaujahr <= ${Baujahrbis} AND LiegGrundstückfläche <= ${grundStückB} AND LiegNutzfläche <= ${nutzFlB} AND LiegAusbaustandart = '${ausbauSt}' AND LiegZustand = '${zustand}' AND    LiegTyp = '${Liegenschaftstyp}' AND LiegPreis >= ${chfVon} AND LiegPreis <= ${chfBis}",
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
+app.post("/insert", (req, res) => {
+  const grundStück = req.grundStück;
+  const nutzfläche = req.body.nutzfläche;
+  const ausbaustand = req.body.ausbaustand;
+  const zustandReq = req.body.zustandReq;
+  const chfmin = req.body.chfmin;
+  const chfmax = req.body.chfmax;
+  const baujahrmin = req.body.baujahrmin;
+  const baujahrmax = req.body.baujahrmax;
+
+  db.query("Insert into TLiegenschaften", (err, result) => {});
 });
 */
-
 app.listen(3001, () => {
   console.log("Server is running");
 });

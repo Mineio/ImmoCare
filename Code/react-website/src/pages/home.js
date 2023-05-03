@@ -20,29 +20,7 @@ const Home = () => {
   useEffect(() => {
     selectProperties();
   }, []);
-  /*
-  useEffect(() => {
-    selectNewProperties();
-  }, [suchen]);
 
-  const selectNewProperties = () => {
-    Axios.get("http://localhost:3001/getNewProperties", {
-      params: {
-        grundStückB,
-        nutzFlB,
-        ausbauSt,
-        zustand,
-        chfVon,
-        chfBis,
-        baujahrVon,
-        Baujahrbis,
-        Liegenschaftstyp,
-      },
-    }).then((response) => {
-      setProperty(response.data);
-    });
-  };
-*/
   const selectProperties = () => {
     Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
@@ -184,6 +162,7 @@ const Home = () => {
         </div>
         <div></div>
       </div>
+      <br></br>
       <div className="listProperties">
         <table>
           <thead>
