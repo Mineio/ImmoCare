@@ -74,14 +74,14 @@
   justify-content: center;
 }
 
-table{ 
+.properties table{ 
   margin-top: 30px;
   border-collapse: separate;
   border-spacing: 0 15px;
   text-align: center;
 }
 
-tbody td{
+.properties tbody td{
   width: auto;
   border-top: 2px solid black;
   border-bottom: 2px solid black;
@@ -92,11 +92,11 @@ tbody td{
   position: static;
 }
 
-tbody td:nth-child(1){
+.properties tbody td:nth-child(1){
   border-left: 2px solid black;
 }
 
-tbody td:last-child{
+.properties tbody td:last-child{
   border-right: 2px solid black;
 }
 
@@ -104,15 +104,43 @@ tbody td:last-child{
   margin-left: 130px;
 }
 
-tbody tr:nth-child(odd){
+.properties tbody tr:nth-child(odd){
   background-color: rgb(205, 205, 205);
 }
 
-button{
+.properties button{
   width: 170px;
   height: 40px;
 }
 
-tbody tr:hover{
+.properties tbody tr:hover{
   background-color: rgb(166, 166, 166)
+}
+
+.clickedProperty{
+  width: 800px;
+  height: 100%;
+  background-color: lightgray;
+  margin-left: 25%;
+  display: flex;
+  justify-content: center;
+}
+
+.clickedProperty form div{
+  padding-top: 15px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.clickedProperty input{
+  height: 50px;
+  width: 200px;
+  text-align: center;
+}
+
+.clickedProperty button{
+  height: 50px;
+  width: 200px;
 }
