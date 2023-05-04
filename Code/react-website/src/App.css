@@ -116,12 +116,3 @@ button{
 tbody tr:hover{
   background-color: rgb(166, 166, 166)
 }
-
-.positionRight{
-  float: right;
-}
-.InsertForm{
-  padding-left: 350px;
-  padding-right: 300px;
-  width: 100px;
-}
