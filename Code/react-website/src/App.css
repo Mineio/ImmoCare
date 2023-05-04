@@ -117,30 +117,70 @@
   background-color: rgb(166, 166, 166)
 }
 
-.clickedProperty{
-  width: 800px;
-  height: 100%;
-  background-color: lightgray;
-  margin-left: 25%;
+.clickedProperty {
   display: flex;
-  justify-content: center;
-}
-
-.clickedProperty form div{
-  padding-top: 15px;
-  width: 600px;
-  display: flex;
-  align-items: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  width: 50%;
+  margin-left: 25%;
 }
 
-.clickedProperty input{
-  height: 50px;
-  width: 200px;
+.clickedProperty h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-.clickedProperty button{
-  height: 50px;
-  width: 200px;
+.clickedProperty form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.clickedProperty label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.clickedProperty input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.clickedProperty input[type="text"]:focus {
+  outline: none;
+  border: 1px solid #2ecc71;
+}
+
+.clickedProperty button {
+  padding: 1rem;
+  margin-top: 1.5rem;
+  width: 10rem;
+  text-align: center;
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clickedProperty button:hover {
+  background-color: #27ae60;
+}
+
+.rightSide{
+  margin-left: 2rem;
 }

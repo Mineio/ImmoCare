@@ -13,75 +13,88 @@ const ClickedProperty = () => {
     setProperty(JSON.parse(localStorage.getItem("property")));
   };
 
-  const editProperty = () => {
+  const editProperty = () => {};
 
-  }
-
-  const saveProperty = () => {
-    
-  }
+  const saveProperty = () => {};
 
   return (
     <div className="clickedProperty">
+      <h1>Liegenschaft bearbeiten</h1>
       <form>
-        <div>
-          <label htmlFor="LiegTyp">Liegenschaftstyp</label>
-          <input type="text" name="LiegTyp" placeholder={property.LiegTyp} />
+        <div className="leftSide">
+          <div>
+            <label htmlFor="LiegTyp">Liegenschaftstyp</label>
+            <input type="text" name="LiegTyp" placeholder={property.LiegTyp} />
+          </div>
+          <div>
+            <label htmlFor="LiegNutzfläche">Nutzfläche</label>
+            <input
+              type="text"
+              name="LiegNutzfläche"
+              placeholder={property.LiegNutzfläche}
+            />
+          </div>
+          <div>
+            <label htmlFor="LiegBezeichnung">Bezeichnung</label>
+            <input
+              type="text"
+              name="LiegBezeichnung"
+              placeholder={property.LiegBezeichnung}
+            />
+          </div>
+          <div>
+            <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
+            <input
+              type="text"
+              name="LiegAusbaustandart"
+              placeholder={property.LiegAusbaustandart}
+            />
+          </div>
+          <div>
+            <label htmlFor="LiegZustand">Zustand</label>
+            <input
+              type="text"
+              name="LiegZustand"
+              placeholder={property.LiegZustand}
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="LiegNutzfläche">Nutzfläche</label>
-          <input
-            type="text"
-            name="LiegNutzfläche"
-            placeholder={property.LiegNutzfläche}
-          />
+        <div className="rightSide">
+          <div>
+            <label htmlFor="LiegGrundstückfläche">Grundstückfläche</label>
+            <input
+              type="text"
+              name="LiegGrundstückfläche"
+              placeholder={property.LiegGrundstückfläche}
+            />
+          </div>
+          <div>
+            <label htmlFor="LiegBaujahr">Baujahr</label>
+            <input
+              type="text"
+              name="LiegBaujahr"
+              placeholder={property.LiegBaujahr}
+            />
+          </div>
+          <div>
+            <label htmlFor="LiegZusatz">Zusatz</label>
+            <input
+              type="text"
+              name="LiegZusatz"
+              placeholder={property.LiegZusatz}
+            />
+          </div>
+          <div>
+            <button id="edit" onClick={editProperty}>
+              Bearbeiten
+            </button>
+            <div>
+              <button id="edit" onClick={saveProperty}>
+                Speichern
+              </button>
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
-          <input
-            type="text"
-            name="LiegAusbaustandart"
-            placeholder={property.LiegAusbaustandart}
-          />
-        </div>
-        <div>
-          <label htmlFor="LiegZustand">Zustand</label>
-          <input
-            type="text"
-            name="LiegZustand"
-            placeholder={property.LiegZustand}
-          />
-        </div>
-        <div>
-          <label htmlFor="LiegGrundstückfläche">Grundstückfläche</label>
-          <input
-            type="text"
-            name="LiegGrundstückfläche"
-            placeholder={property.LiegGrundstückfläche}
-          />
-        </div>
-        <div>
-          <label htmlFor="LiegBaujahr">Baujahr</label>
-          <input
-            type="text"
-            name="LiegBaujahr"
-            placeholder={property.LiegBaujahr}
-          />
-        </div>
-        <div>
-          <label htmlFor="LiegZusatz">Zusatz</label>
-          <input
-            type="text"
-            name="LiegZusatz"
-            placeholder={property.LiegZusatz}
-          />
-        </div>
-      <div>
-        <button id="edit" onClick={editProperty}>Bearbeiten</button>
-        <div>
-        <button id="edit" onClick={saveProperty}>Speichern</button>
-      </div>
-      </div>
       </form>
     </div>
   );
