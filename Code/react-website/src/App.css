@@ -116,3 +116,50 @@ button{
 tbody tr:hover{
   background-color: rgb(166, 166, 166)
 }
+
+.Container{
+  width: 1000px;
+  height: 500px;
+  margin-left: 165px;
+  margin-top: 30px;
+  border-radius: 15px 15px 15px 15px;
+  background-color: #c6c9cf;
+  margin-bottom: 40px;
+}
+.leftInputs input {
+  width: 400px;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 12px 12px 12px 12px;
+  margin-top: 20px;
+}
+.leftInputs label{
+  margin-right: 30px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+}
+.leftInputs select {
+  margin-top: 10px;
+  width: 400px;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 12px 12px 12px 12px;
+  text-align: left;
+}
+#dropdown option { color: rgb(0, 0, 0); }
+.empty { color: rgb(169, 164, 164); }
+
+.left{
+  float: left;
+  padding-left: 30px;
+}
+.leftInputs{
+  padding-top: 20px;
+}
