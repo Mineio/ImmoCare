@@ -189,13 +189,14 @@ const Home = () => {
           <table>
             <thead>
               <tr>
+                <th>LiegBezeichnung</th>
                 <th>Liegenschaftstyp</th>
-                <th>Kosten</th>
                 <th>Nutzfläche</th>
                 <th>Ausbaustandard</th>
                 <th>Zustand</th>
-                <th>Grundstückfläche</th>
                 <th>Baujahr</th>
+                <th>Kosten</th>
+                <th>Grundstückfläche</th>
               </tr>
             </thead>
             <tbody>
@@ -237,13 +238,14 @@ const Home = () => {
                 .map((val, key) => {
                   return (
                     <tr onClick={navigateToProperty(val)} key={key}>
+                      <td id="liegKosten">{val.LiegBezeichnung}</td>
                       <td id="liegNR">{val.LiegTyp}</td>
-                      <td id="liegKosten">{"Kosten Haus"}</td>
                       <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
                       <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
                       <td id="liegZustand">{val.LiegZustand}</td>
-                      <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
                       <td id="">{val.LiegBaujahr}</td>
+                      <td id="liegKosten">{"Kosten Haus"}</td>
+                      <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
                     </tr>
                   );
                 })}
