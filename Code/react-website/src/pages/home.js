@@ -184,70 +184,74 @@ const Home = () => {
         </div>
         <div></div>
       </div>
-      <div className="listProperties">
-        <table>
-          <thead>
-            <tr>
-              <th>Liegenschaftstyp</th>
-              <th>Kosten</th>
-              <th>Nutzfläche</th>
-              <th>Ausbaustandard</th>
-              <th>Zustand</th>
-              <th>Grundstückfläche</th>
-              <th>Baujahr</th>
-            </tr>
-          </thead>
-          <tbody>
-            {property
-              .filter((property) => {
-                // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
-                if (
-                  Baujahrbis !== "beliebig" ||
-                  baujahrVon !== "beliebig" ||
-                  grundStückB !== "beliebig" ||
-                  nutzFlB !== "beliebig" ||
-                  ausbauSt !== "beliebig" ||
-                  zustand !== "beliebig" ||
-                  Liegenschaftstyp !== "beliebig"
-                ) {
-                  // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
-                  return (
-                    (Baujahrbis === "beliebig" ||
-                      property.LiegBaujahr <= Baujahrbis) &&
-                    (baujahrVon === "beliebig" ||
-                      property.LiegBaujahr >= baujahrVon) &&
-                    (grundStückB === "beliebig" ||
-                      property.LiegGrundstückfläche <= grundStückB) &&
-                    (nutzFlB === "beliebig" ||
-                      property.LiegNutzfläche <= nutzFlB) &&
-                    (ausbauSt === "beliebig" ||
-                      property.LiegAusbaustandart === ausbauSt) &&
-                    (zustand === "beliebig" ||
-                      property.LiegZustand === zustand) &&
-                    (Liegenschaftstyp === "beliebig" ||
-                      property.LiegTyp === Liegenschaftstyp)
-                  );
-                } else {
-                  // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
-                  return true;
-                }
-              })
+      <div className="">
+        <div className="listProperties">
+          <table>
+            <thead>
+              <tr>
+                <th>LiegBezeichnung</th>
+                <th>Liegenschaftstyp</th>
+                <th>Nutzfläche</th>
+                <th>Ausbaustandard</th>
+                <th>Zustand</th>
+                <th>Baujahr</th>
+                <th>Kosten</th>
+                <th>Grundstückfläche</th>
+              </tr>
+            </thead>
+            <tbody>
+              {property
+                .filter((property) => {
+                  // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
+                  if (
+                    Baujahrbis !== "beliebig" ||
+                    baujahrVon !== "beliebig" ||
+                    grundStückB !== "beliebig" ||
+                    nutzFlB !== "beliebig" ||
+                    ausbauSt !== "beliebig" ||
+                    zustand !== "beliebig" ||
+                    Liegenschaftstyp !== "beliebig"
+                  ) {
+                    // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
+                    return (
+                      (Baujahrbis === "beliebig" ||
+                        property.LiegBaujahr <= Baujahrbis) &&
+                      (baujahrVon === "beliebig" ||
+                        property.LiegBaujahr >= baujahrVon) &&
+                      (grundStückB === "beliebig" ||
+                        property.LiegGrundstückfläche <= grundStückB) &&
+                      (nutzFlB === "beliebig" ||
+                        property.LiegNutzfläche <= nutzFlB) &&
+                      (ausbauSt === "beliebig" ||
+                        property.LiegAusbaustandart === ausbauSt) &&
+                      (zustand === "beliebig" ||
+                        property.LiegZustand === zustand) &&
+                      (Liegenschaftstyp === "beliebig" ||
+                        property.LiegTyp === Liegenschaftstyp)
+                    );
+                  } else {
+                    // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
+                    return true;
+                  }
+                })
 
-              .map((val, key) => {
-                return (
-                  <tr onClick={navigateToProperty(val)} key={key}>
-                    <td id="liegNR">{val.LiegTyp}</td>
-                    <td id="liegKosten">{"Kosten Haus"}</td>
-                    <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
-                    <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
-                    <td id="liegZustand">{val.LiegZustand}</td>
-                    <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
-                    <td id="">{val.LiegBaujahr}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+                .map((val, key) => {
+                  return (
+                    <tr onClick={navigateToProperty(val)} key={key}>
+                      <td id="liegKosten">{val.LiegBezeichnung}</td>
+                      <td id="liegNR">{val.LiegTyp}</td>
+                      <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
+                      <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
+                      <td id="liegZustand">{val.LiegZustand}</td>
+                      <td id="">{val.LiegBaujahr}</td>
+                      <td id="liegKosten">{"Kosten Haus"}</td>
+                      <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
