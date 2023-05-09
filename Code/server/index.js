@@ -23,20 +23,40 @@ app.get("/getProperties", (req, res) => {
     }
   });
 });
-/*
+
 app.post("/insert", (req, res) => {
-  const grundStück = req.grundStück;
+  const grundStück = req.body.grundStück;
   const nutzfläche = req.body.nutzfläche;
   const ausbaustand = req.body.ausbaustand;
-  const zustandReq = req.body.zustandReq;
-  const chfmin = req.body.chfmin;
-  const chfmax = req.body.chfmax;
-  const baujahrmin = req.body.baujahrmin;
-  const baujahrmax = req.body.baujahrmax;
+  const zustand = req.body.zustandReq;
+  const nr = req.body.nr;
+  const bezeichnung = req.body.bezeichnung;
+  const baujahr = req.body.Baujahr;
+  const zusatz = req.body.Zusatz;
+  const typ = req.body.typ;
 
-  db.query("Insert into TLiegenschaften", (err, result) => {});
+  db.query(
+    "Insert into TLiegenschaften where LiegNr=? and LiegTyp=? and LiegBezeichnung=? and LiegBaujahr=? and LiegGrundstückfläche=? and LiegNutzfläche=? and LiegAusbaustandart=? and LiegZustand=?and LiegZusatz=?",
+    [
+      nr,
+      typ,
+      bezeichnung,
+      baujahr,
+      grundStück,
+      nutzfläche,
+      ausbaustand,
+      zustand,
+      zusatz,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "Liegenschaft erfolgreich eingefügt" });
+      }
+    }
+  );
 });
-*/
 app.listen(3001, () => {
   console.log("Server is running");
 });

@@ -12,7 +12,7 @@ const Navbar = () => {
           <NavLink to="/clickedProperty" activestyle="true">
             Last Property
           </NavLink>
-          <NavLink to="/AddProperty" activestyle="true">
+          <NavLink to="/addProperty" activestyle="true">
             Liegenschaft Hinzufügen
           </NavLink>
         </NavMenu>

@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import ClickedProperty from "./pages/clickedProperty";
-import AddProperty from "./pages/AddProperty";
+import AddProperty from "./pages/addProperty";
 
 function App() {
   return (

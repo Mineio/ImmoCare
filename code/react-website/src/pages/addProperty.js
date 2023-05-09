@@ -7,9 +7,11 @@ function AddProperty() {
   const [Nutzfläche, setNutzfläche] = useState("beliebig");
   const [ausbauSt, setausbauSt] = useState("beliebig");
   const [zustand, setzustand] = useState("beliebig");
-  const [Preis, setPreis] = useState("beliebig");
   const [Baujahr, setBaujahr] = useState("beliebig");
   const [Liegenschaftstyp, setLiegenschaftstyp] = useState("beliebig");
+  const [zusatz, setzusatz] = useState("beliebig");
+  const [liegNr, setliegNr] = useState("beliebig");
+  const [Bezeichnung, setBezeichnung] = useState("beliebig");
 
   const insertProperties = () => {
     Axios.post("http://localhost:3001/insert", {
@@ -17,8 +19,11 @@ function AddProperty() {
       nutzfläche: Nutzfläche,
       ausbaustand: ausbauSt,
       zustandReq: zustand,
-      chf: Preis,
-      baujahr: Baujahr,
+      nr: liegNr,
+      typ: Liegenschaftstyp,
+      Zusatz: zusatz,
+      Baujahr: Baujahr,
+      bezeichnung: Bezeichnung,
     }).then((response) => {
       console.log(response);
     });
@@ -34,12 +39,24 @@ function AddProperty() {
                 <form>
                   <label htmlFor="wordsearch">Liegenschaftstyp</label>
                   <select placeholder="" id="dropdown">
-                    <option value="" disabled selected hidden>
+                    <option
+                      value=""
+                      disabled
+                      selected
+                      hidden
+                      onChange={(e) => setLiegenschaftstyp(e.target.value)}
+                    >
                       Selektiere deine Option
                     </option>
                     <option>Einfamilienhaus</option>
                     <option>Mehrfamilienhaus</option>
+                    <option>Hof</option>
+                    <option>Loft</option>
+                    <option>MFH</option>
+                    <option>Reiheneinfamilienhaus</option>
+                    <option>Eckhaus</option>
                     <option>Gebwerbeliegenschaft</option>
+                    <option>Eigentumswohnung</option>
                   </select>
                 </form>
               </div>
@@ -55,7 +72,7 @@ function AddProperty() {
               </div>
               <div>
                 <form>
-                  <label htmlFor="nutzFlB">Nutzfläche bis</label>
+                  <label htmlFor="nutzFlB">Nutzfläche </label>
                   <input
                     type="text"
                     placeholder="Eingabe"
@@ -67,13 +84,19 @@ function AddProperty() {
                 <form>
                   <label htmlFor="ausbauSt">Ausbaustand</label>
                   <select placeholder="" id="dropdown">
-                    <option value="" disabled selected hidden>
+                    <option
+                      value=""
+                      disabled
+                      selected
+                      hidden
+                      onChange={(e) => setausbauSt(e.target.value)}
+                    >
                       Selektiere deine Option
                     </option>
                     <option>rustikal</option>
                     <option>normal</option>
                     <option>einfach</option>
-                    <option>luxeriös</option>
+                    <option>luxuriös</option>
                   </select>
                 </form>
               </div>
@@ -82,25 +105,29 @@ function AddProperty() {
               <form>
                 <label htmlFor="Zustand">Zustand</label>
                 <select placeholder="" id="dropdown">
-                  <option value="" disabled selected hidden>
+                  <option
+                    value=""
+                    disabled
+                    selected
+                    hidden
+                    onChange={(e) => setzustand(e.target.value)}
+                  >
                     Selektiere deine Option
                   </option>
                   <option>neuwertig</option>
                   <option>normal</option>
                   <option>renoviert</option>
                   <option>sanierungsbedürftig</option>
-                  <option>Gebwerbeliegenschaft</option>
-                  <option>Gebwerbeliegenschaft</option>
                 </select>
               </form>
             </div>
             <div>
               <form>
-                <label htmlFor="preis">Preis</label>
+                <label htmlFor="preis">Bezeichnung</label>
                 <input
                   type="text"
                   placeholder="Eingabe"
-                  onChange={(e) => setPreis(e.target.value)}
+                  onChange={(e) => setBezeichnung(e.target.value)}
                 ></input>
               </form>
             </div>
@@ -116,15 +143,26 @@ function AddProperty() {
             </div>
             <div>
               <form>
-                <label htmlFor="preis">Preis</label>
+                <label>Liegenschafts Zusatz</label>
                 <input
                   type="text"
                   placeholder="Eingabe"
-                  onChange={(e) => setPreis(e.target.value)}
+                  onChange={(e) => setzusatz(e.target.value)}
                 ></input>
               </form>
             </div>
-            <button>Hinzufügen</button>
+            <div>
+              <form>
+                <label>LiegenschaftNr</label>
+                <input
+                  type="text"
+                  placeholder="Eingabe"
+                  onChange={(e) => setliegNr(e.target.value)}
+                ></input>
+              </form>
+            </div>
+
+            <button onClick={insertProperties}>Hinzufügen</button>
           </div>
         </div>
       </div>
