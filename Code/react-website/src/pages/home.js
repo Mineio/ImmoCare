@@ -51,8 +51,10 @@ const Home = () => {
 
   const navigateToProperty = (clickedLiegenschaft) => {
     return () => {
+      let ellist = document.querySelectorAll("liste");
       console.log(clickedLiegenschaft.LiegTyp);
       localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
+      localStorage.setItem("list", JSON.stringify(ellist));
       window.location.replace("../clickedProperty");
     };
   };
@@ -199,6 +201,7 @@ const Home = () => {
                 <th>Grundstückfläche</th>
               </tr>
             </thead>
+
             <tbody>
               {property
                 .filter((property) => {
@@ -234,10 +237,13 @@ const Home = () => {
                     return true;
                   }
                 })
-
                 .map((val, key) => {
                   return (
-                    <tr onClick={navigateToProperty(val)} key={key}>
+                    <tr
+                      className="liste"
+                      onClick={navigateToProperty(val)}
+                      key={key}
+                    >
                       <td id="liegKosten">{val.LiegBezeichnung}</td>
                       <td id="liegNR">{val.LiegTyp}</td>
                       <td id="lietNutzfläche">{val.LiegNutzfläche}</td>

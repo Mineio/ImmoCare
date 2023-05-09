@@ -129,3 +129,14 @@ th{
   border-collapse: collapse;
   overflow: hidden;
 }
+.Buttons{
+  margin-top: 400px;
+  display: flex;
+}
+.ButtonZurück{
+float: left;
+padding-left: 40px;
+}
+.ButtonWeiter{
+  padding-left: 850px;
+}
