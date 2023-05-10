@@ -3,27 +3,28 @@ import Axios from "axios";
 import { useState } from "react";
 
 function AddProperty() {
-  const [Grundstückfläche, setGrundstückfläche] = useState("beliebig");
-  const [Nutzfläche, setNutzfläche] = useState("beliebig");
-  const [ausbauSt, setausbauSt] = useState("beliebig");
-  const [zustand, setzustand] = useState("beliebig");
-  const [Baujahr, setBaujahr] = useState("beliebig");
-  const [Liegenschaftstyp, setLiegenschaftstyp] = useState("beliebig");
-  const [zusatz, setzusatz] = useState("beliebig");
-  const [liegNr, setliegNr] = useState("beliebig");
-  const [Bezeichnung, setBezeichnung] = useState("beliebig");
+  const [Grundstückfläche, setGrundstückfläche] = useState("");
+  const [Nutzfläche, setNutzfläche] = useState("");
+  const [ausbauSt, setausbauSt] = useState("");
+  const [zustand, setzustand] = useState("");
+  const [Baujahr, setBaujahr] = useState("");
+  const [Liegenschaftstyp, setLiegenschaftstyp] = useState("");
+  const [zusatz, setzusatz] = useState("");
+  const [liegNr, setliegNr] = useState("");
+  const [Bezeichnung, setBezeichnung] = useState("");
 
   const insertProperties = () => {
+    console.log(Grundstückfläche);
     Axios.post("http://localhost:3001/insert", {
-      grundStück: Grundstückfläche,
-      nutzfläche: Nutzfläche,
-      ausbaustand: ausbauSt,
-      zustandReq: zustand,
-      nr: liegNr,
-      typ: Liegenschaftstyp,
-      Zusatz: zusatz,
+      Grundstückfläche: Grundstückfläche,
+      Nutzfläche: Nutzfläche,
+      ausbauSt: ausbauSt,
+      zustand: zustand,
+      liegNr: liegNr,
+      Liegenschaftstyp: Liegenschaftstyp,
+      zusatz: zusatz,
       Baujahr: Baujahr,
-      bezeichnung: Bezeichnung,
+      Bezeichnung: Bezeichnung,
     }).then((response) => {
       console.log(response);
     });
@@ -44,7 +45,9 @@ function AddProperty() {
                       disabled
                       selected
                       hidden
-                      onChange={(e) => setLiegenschaftstyp(e.target.value)}
+                      onChange={(e) => {
+                        setLiegenschaftstyp(e.target.value);
+                      }}
                     >
                       Selektiere deine Option
                     </option>
@@ -66,7 +69,9 @@ function AddProperty() {
                   <input
                     type="text"
                     placeholder="Eingabe"
-                    onChange={(e) => setGrundstückfläche(e.target.value)}
+                    onChange={(event) => {
+                      setGrundstückfläche(event.target.value);
+                    }}
                   ></input>
                 </form>
               </div>
@@ -76,7 +81,9 @@ function AddProperty() {
                   <input
                     type="text"
                     placeholder="Eingabe"
-                    onChange={(e) => setNutzfläche(e.target.value)}
+                    onChange={(event) => {
+                      setNutzfläche(event.target.value);
+                    }}
                   ></input>
                 </form>
               </div>
@@ -89,7 +96,9 @@ function AddProperty() {
                       disabled
                       selected
                       hidden
-                      onChange={(e) => setausbauSt(e.target.value)}
+                      onChange={(event) => {
+                        setausbauSt(event.target.value);
+                      }}
                     >
                       Selektiere deine Option
                     </option>
@@ -110,7 +119,9 @@ function AddProperty() {
                     disabled
                     selected
                     hidden
-                    onChange={(e) => setzustand(e.target.value)}
+                    onChange={(event) => {
+                      setzustand(event.target.value);
+                    }}
                   >
                     Selektiere deine Option
                   </option>
@@ -127,7 +138,9 @@ function AddProperty() {
                 <input
                   type="text"
                   placeholder="Eingabe"
-                  onChange={(e) => setBezeichnung(e.target.value)}
+                  onChange={(event) => {
+                    setBezeichnung(event.target.value);
+                  }}
                 ></input>
               </form>
             </div>
@@ -137,7 +150,9 @@ function AddProperty() {
                 <input
                   type="text"
                   placeholder="Eingabe"
-                  onChange={(e) => setBaujahr(e.target.value)}
+                  onChange={(e) => {
+                    setBaujahr(e.target.value);
+                  }}
                 ></input>
               </form>
             </div>
@@ -147,7 +162,9 @@ function AddProperty() {
                 <input
                   type="text"
                   placeholder="Eingabe"
-                  onChange={(e) => setzusatz(e.target.value)}
+                  onChange={(e) => {
+                    setzusatz(e.target.value);
+                  }}
                 ></input>
               </form>
             </div>
@@ -157,7 +174,9 @@ function AddProperty() {
                 <input
                   type="text"
                   placeholder="Eingabe"
-                  onChange={(e) => setliegNr(e.target.value)}
+                  onChange={(e) => {
+                    setliegNr(e.target.value);
+                  }}
                 ></input>
               </form>
             </div>

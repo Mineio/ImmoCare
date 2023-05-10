@@ -25,18 +25,18 @@ app.get("/getProperties", (req, res) => {
 });
 
 app.post("/insert", (req, res) => {
-  const grundStück = req.body.grundStück;
-  const nutzfläche = req.body.nutzfläche;
-  const ausbaustand = req.body.ausbaustand;
-  const zustand = req.body.zustandReq;
-  const nr = req.body.nr;
-  const bezeichnung = req.body.bezeichnung;
+  const grundStück = req.body.Grundstückfläche;
+  const nutzfläche = req.body.Nutzfläche;
+  const ausbaustand = req.body.ausbauSt;
+  const zustand = req.body.zustand;
+  const nr = req.body.liegNr;
+  const bezeichnung = req.body.Bezeichnung;
   const baujahr = req.body.Baujahr;
-  const zusatz = req.body.Zusatz;
-  const typ = req.body.typ;
+  const zusatz = req.body.zusatz;
+  const typ = req.body.Liegenschaftstyp;
 
   db.query(
-    "Insert into TLiegenschaften where LiegNr=? and LiegTyp=? and LiegBezeichnung=? and LiegBaujahr=? and LiegGrundstückfläche=? and LiegNutzfläche=? and LiegAusbaustandart=? and LiegZustand=?and LiegZusatz=?",
+    "INSERT INTO TLiegenschaften(LiegNR, LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?,?)",
     [
       nr,
       typ,
