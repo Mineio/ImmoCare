@@ -24,6 +24,31 @@ app.get("/getProperties", (req, res) => {
   });
 });
 
+app.put("/updateProperty", (req, res) => {
+  const updateProperty = req.body.propertyToUpdate;
+  db.query(
+    "UPDATE TLiegenschaften SET LiegTyp = ?, LiegBezeichnung = ?, LiegBaujahr = ?, LiegGrundstückfläche = ?, LiegNutzfläche = ?, LiegAusbaustandart = ?, LiegZustand = ?, LiegZusatz = ? where LiegNR = ?",
+    [
+      updateProperty.LiegTyp,
+      updateProperty.LiegBezeichnung,
+      updateProperty.LiegBaujahr,
+      updateProperty.LiegGrundstückfläche,
+      updateProperty.LiegNutzfläche,
+      updateProperty.LiegAusbaustandart,
+      updateProperty.LiegZustand,
+      updateProperty.LiegZusatz,
+      updateProperty.LiegNR,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 /*
 app.get("/getNewProperties", (req, res) => {
   db.query(

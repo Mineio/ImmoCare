@@ -43,15 +43,14 @@ const Home = () => {
     });
   };
 */
-  const selectProperties = () => {
-    Axios.get("http://localhost:3001/getProperties").then((response) => {
+  const selectProperties = async () => {
+    await Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
     });
   };
 
   const navigateToProperty = (clickedLiegenschaft) => {
     return () => {
-      console.log(clickedLiegenschaft.LiegTyp);
       localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
       window.location.replace("../clickedProperty");
     };
