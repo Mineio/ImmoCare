@@ -75,9 +75,9 @@
 }
 
 .properties table{ 
-  margin-top: 30px;
+  margin-top: 50px;
   border-collapse: separate;
-  border-spacing: 0 15px;
+  border-spacing: 0 0px;
   text-align: center;
 }
 
@@ -103,6 +103,13 @@
 .properties{
   margin-left: 130px;
 }
+
+.properties th{
+  background-color: #ebedf1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-collapse: collapse;
+  overflow: hidden;
 
 .properties tbody tr:nth-child(odd){
   background-color: rgb(205, 205, 205);
