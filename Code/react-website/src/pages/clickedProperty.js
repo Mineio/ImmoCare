@@ -12,8 +12,12 @@ const ClickedProperty = () => {
   }, []);
 
   const getProperty = () => {
-    setProperty(JSON.parse(localStorage.getItem("property")));
-    setlist(JSON.parse(localStorage.getItem("table")));
+    let elelement = setProperty(JSON.parse(localStorage.getItem("property")));
+    let eltable = setlist(localStorage.getItem("list"));
+    console.log(JSON.parse(eltable[0]));
+    const position = eltable.findIndex(elelement);
+    setIndex(position);
+    RenderPropertyAtIndex(index);
   };
 
   const goToPrevious = () => {
@@ -27,34 +31,38 @@ const ClickedProperty = () => {
       setIndex(index + 1);
     }
   };
+  function RenderPropertyAtIndex(index) {
+    const properties = useState()[0];
+    const property = properties[index];
 
-  return (
-    <div className="clickedProperty">
-      <table>
-        <tbody>
-          <tr>
-            <td id="liegKosten">{property.LiegTyp}</td>
-            <td id="liegKosten">{property.LiegBezeichnung}</td>
-            <td id="liegKosten">{"Kosten Haus"}</td>
-            <td id="lietNutzfläche">{property.LiegNutzfläche}</td>
-            <td id="liegAusbauS">{property.LiegAusbaustandart}</td>
-            <td id="liegZustand">{property.LiegZustand}</td>
-            <td id="liegGrundSF">{property.LiegGrundstückfläche}</td>
-            <td id="">{property.LiegBaujahr}</td>
-            <td id="">{property.LiegZusatz}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div className="Buttons">
-        <div className="ButtonZurück">
-          <button onClick={goToPrevious}>zurück</button>
-        </div>
-        <div className="ButtonWeiter">
-          <button onClick={goToNext}>weiter</button>
+    return (
+      <div className="clickedProperty">
+        <table>
+          <tbody>
+            <React.Fragment>
+              <td id="liegKosten">{property.LiegTyp}</td>
+              <td id="liegKosten">{property.LiegBezeichnung}</td>
+              <td id="liegKosten">{"Kosten Haus"}</td>
+              <td id="lietNutzfläche">{property.LiegNutzfläche}</td>
+              <td id="liegAusbauS">{property.LiegAusbaustandart}</td>
+              <td id="liegZustand">{property.LiegZustand}</td>
+              <td id="liegGrundSF">{property.LiegGrundstückfläche}</td>
+              <td id="">{property.LiegBaujahr}</td>
+              <td id="">{property.LiegZusatz}</td>
+            </React.Fragment>
+          </tbody>
+        </table>
+        <div className="Buttons">
+          <div className="ButtonZurück">
+            <button onClick={goToPrevious}>zurück</button>
+          </div>
+          <div className="ButtonWeiter">
+            <button onClick={goToNext}>weiter</button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ClickedProperty;

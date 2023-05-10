@@ -16,6 +16,7 @@ const Home = () => {
   const [baujahrVon, setbaujahrVon] = useState("beliebig");
   const [Baujahrbis, setBaujahrbis] = useState("beliebig");
   const [Liegenschaftstyp, setLiegenschaftstyp] = useState("beliebig");
+  const [objekteArray, setObjekteArray] = useState([]);
 
   useEffect(() => {
     selectProperties();
@@ -51,10 +52,17 @@ const Home = () => {
 
   const navigateToProperty = (clickedLiegenschaft) => {
     return () => {
-      let ellist = document.querySelectorAll("liste");
+      console.log("Navigate");
+      let ellist = document.querySelectorAll(".liste");
+      console.log("liste");
+      console.log(ellist);
+      let listJson = [];
+      for (let i = 0; i < ellist.length; i++) {
+        listJson.push(JSON.stringify(ellist[i]));
+      }
       console.log(clickedLiegenschaft.LiegTyp);
       localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
-      localStorage.setItem("list", JSON.stringify(ellist));
+      localStorage.setItem("list", listJson);
       window.location.replace("../clickedProperty");
     };
   };
