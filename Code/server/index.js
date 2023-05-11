@@ -24,6 +24,34 @@ app.get("/getProperties", (req, res) => {
   });
 });
 
+app.put("/updateProperty", (req, res) => {
+  const updateProperty = req.body.propertyToUpdate;
+  db.query(
+    "UPDATE TLiegenschaften SET LiegTyp = ?, LiegBezeichnung = ?, LiegBaujahr = ?, LiegGrundstückfläche = ?, LiegNutzfläche = ?, LiegAusbaustandart = ?, LiegZustand = ?, LiegZusatz = ? where LiegNR = ?",
+    [
+      updateProperty.LiegTyp,
+      updateProperty.LiegBezeichnung,
+      updateProperty.LiegBaujahr,
+      updateProperty.LiegGrundstückfläche,
+      updateProperty.LiegNutzfläche,
+      updateProperty.LiegAusbaustandart,
+      updateProperty.LiegZustand,
+      updateProperty.LiegZusatz,
+      updateProperty.LiegNR,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+//app.get("/getNewProperties", (req, res) => {
+
 app.post("/insert", (req, res) => {
   const grundStück = req.body.Grundstückfläche;
   const nutzfläche = req.body.Nutzfläche;
@@ -34,7 +62,7 @@ app.post("/insert", (req, res) => {
   const baujahr = req.body.Baujahr;
   const zusatz = req.body.zusatz;
   const typ = req.body.Liegenschaftstyp;
-
+  
   db.query(
     "INSERT INTO TLiegenschaften(LiegNR, LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?,?)",
     [
