@@ -50,7 +50,7 @@ app.post("/insert", (req, res) => {
     ],
     (err, result) => {
       if (err) {
-        console.log(err);
+        alert("Daten konnten nicht eingefügt werden");
       } else {
         res.send({ message: "Liegenschaft erfolgreich eingefügt" });
       }
