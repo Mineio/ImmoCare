@@ -49,21 +49,42 @@ app.put("/updateProperty", (req, res) => {
   );
 });
 
-/*
-app.get("/getNewProperties", (req, res) => {
+
+//app.get("/getNewProperties", (req, res) => {
+
+app.post("/insert", (req, res) => {
+  const grundStück = req.body.Grundstückfläche;
+  const nutzfläche = req.body.Nutzfläche;
+  const ausbaustand = req.body.ausbauSt;
+  const zustand = req.body.zustand;
+  const nr = req.body.liegNr;
+  const bezeichnung = req.body.Bezeichnung;
+  const baujahr = req.body.Baujahr;
+  const zusatz = req.body.zusatz;
+  const typ = req.body.Liegenschaftstyp;
+  
   db.query(
-    "SELECT * FROM TLiegenschaften WHERE  LiegBaujahr >= ${baujahrVon} AND LiegBaujahr <= ${Baujahrbis} AND LiegGrundstückfläche <= ${grundStückB} AND LiegNutzfläche <= ${nutzFlB} AND LiegAusbaustandart = '${ausbauSt}' AND LiegZustand = '${zustand}' AND    LiegTyp = '${Liegenschaftstyp}' AND LiegPreis >= ${chfVon} AND LiegPreis <= ${chfBis}",
+    "INSERT INTO TLiegenschaften(LiegNR, LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?,?)",
+    [
+      nr,
+      typ,
+      bezeichnung,
+      baujahr,
+      grundStück,
+      nutzfläche,
+      ausbaustand,
+      zustand,
+      zusatz,
+    ],
     (err, result) => {
       if (err) {
-        console.log(err);
+        alert("Daten konnten nicht eingefügt werden");
       } else {
-        res.send(result);
+        res.send({ message: "Liegenschaft erfolgreich eingefügt" });
       }
     }
   );
 });
-*/
-
 app.listen(3001, () => {
   console.log("Server is running");
 });

@@ -20,29 +20,8 @@ const Home = () => {
   useEffect(() => {
     selectProperties();
   }, []);
-  /*
-  useEffect(() => {
-    selectNewProperties();
-  }, [suchen]);
 
-  const selectNewProperties = () => {
-    Axios.get("http://localhost:3001/getNewProperties", {
-      params: {
-        grundStückB,
-        nutzFlB,
-        ausbauSt,
-        zustand,
-        chfVon,
-        chfBis,
-        baujahrVon,
-        Baujahrbis,
-        Liegenschaftstyp,
-      },
-    }).then((response) => {
-      setProperty(response.data);
-    });
-  };
-*/
+
   const selectProperties = async () => {
     await Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
@@ -183,6 +162,35 @@ const Home = () => {
         </div>
         <div></div>
       </div>
+
+      <br></br>
+      <div className="listProperties">
+        <table>
+          <thead>
+            <tr>
+              <th>Liegenschaftstyp</th>
+              <th>Kosten</th>
+              <th>Nutzfläche</th>
+              <th>Ausbaustandard</th>
+              <th>Zustand</th>
+              <th>Grundstückfläche</th>
+              <th>Baujahr</th>
+            </tr>
+          </thead>
+          <tbody>
+            {property
+              .filter((property) => {
+                // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
+                if (
+                  Baujahrbis !== "beliebig" ||
+                  baujahrVon !== "beliebig" ||
+                  grundStückB !== "beliebig" ||
+                  nutzFlB !== "beliebig" ||
+                  ausbauSt !== "beliebig" ||
+                  zustand !== "beliebig" ||
+                  Liegenschaftstyp !== "beliebig"
+                ) {
+                  // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
       <div className="">
         <div className="listProperties">
           <table>
