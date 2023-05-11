@@ -163,34 +163,6 @@ const Home = () => {
         <div></div>
       </div>
 
-      <br></br>
-      <div className="listProperties">
-        <table>
-          <thead>
-            <tr>
-              <th>Liegenschaftstyp</th>
-              <th>Kosten</th>
-              <th>Nutzfläche</th>
-              <th>Ausbaustandard</th>
-              <th>Zustand</th>
-              <th>Grundstückfläche</th>
-              <th>Baujahr</th>
-            </tr>
-          </thead>
-          <tbody>
-            {property
-              .filter((property) => {
-                // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
-                if (
-                  Baujahrbis !== "beliebig" ||
-                  baujahrVon !== "beliebig" ||
-                  grundStückB !== "beliebig" ||
-                  nutzFlB !== "beliebig" ||
-                  ausbauSt !== "beliebig" ||
-                  zustand !== "beliebig" ||
-                  Liegenschaftstyp !== "beliebig"
-                ) {
-                  // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
       <div className="">
         <div className="listProperties">
           <table>

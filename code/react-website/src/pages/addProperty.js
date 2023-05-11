@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "axios";
 import { useState } from "react";
 
-function AddProperty() {
+const AddProperty = () => {
   const [Grundstückfläche, setGrundstückfläche] = useState("");
   const [Nutzfläche, setNutzfläche] = useState("");
   const [ausbauSt, setausbauSt] = useState("");
@@ -14,7 +14,6 @@ function AddProperty() {
   const [Bezeichnung, setBezeichnung] = useState("");
 
   const insertProperties = () => {
-    console.log(Grundstückfläche);
     Axios.post("http://localhost:3001/insert", {
       Grundstückfläche: Grundstückfläche,
       Nutzfläche: Nutzfläche,
@@ -38,17 +37,16 @@ function AddProperty() {
             <div className="left">
               <div>
                 <form>
-                  <label htmlFor="wordsearch">Liegenschaftstyp</label>
-                  <select placeholder="" id="dropdown">
-                    <option
-                      value=""
-                      disabled
-                      selected
-                      hidden
-                      onChange={(e) => {
-                        setLiegenschaftstyp(e.target.value);
-                      }}
-                    >
+                  <label htmlFor="dropdown">Liegenschaftstyp</label>
+                  <select
+                    placeholder=""
+                    id="dropdown"
+                    defaultValue="default"
+                    onChange={(e) => {
+                      setLiegenschaftstyp(e.target.value);
+                    }}
+                  >
+                    <option value="default" disabled hidden>
                       Selektiere deine Option
                     </option>
                     <option>Einfamilienhaus</option>
@@ -65,10 +63,11 @@ function AddProperty() {
               </div>
               <div>
                 <form>
-                  <label>Grundstückfläche</label>
+                  <label htmlFor="grundStFl">Grundstückfläche</label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Eingabe"
+                    id="grundStFl"
                     onChange={(event) => {
                       setGrundstückfläche(event.target.value);
                     }}
@@ -79,8 +78,9 @@ function AddProperty() {
                 <form>
                   <label htmlFor="nutzFlB">Nutzfläche </label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Eingabe"
+                    id="nutzFlB"
                     onChange={(event) => {
                       setNutzfläche(event.target.value);
                     }}
@@ -90,16 +90,15 @@ function AddProperty() {
               <div>
                 <form>
                   <label htmlFor="ausbauSt">Ausbaustand</label>
-                  <select placeholder="" id="dropdown">
-                    <option
-                      value=""
-                      disabled
-                      selected
-                      hidden
-                      onChange={(event) => {
-                        setausbauSt(event.target.value);
-                      }}
-                    >
+                  <select
+                    placeholder=""
+                    id="ausbauSt"
+                    defaultValue="default"
+                    onChange={(event) => {
+                      setausbauSt(event.target.value);
+                    }}
+                  >
+                    <option value="default" disabled hidden>
                       Selektiere deine Option
                     </option>
                     <option>rustikal</option>
@@ -113,11 +112,17 @@ function AddProperty() {
             <div>
               <form>
                 <label htmlFor="Zustand">Zustand</label>
-                <select placeholder="" id="dropdown">
+                <select
+                  placeholder=""
+                  id="Zustand"
+                  defaultValue="default"
+                  onChange={(event) => {
+                    setzustand(event.target.value);
+                  }}
+                >
                   <option
-                    value=""
+                    value="default"
                     disabled
-                    selected
                     hidden
                     onChange={(event) => {
                       setzustand(event.target.value);
@@ -134,9 +139,10 @@ function AddProperty() {
             </div>
             <div>
               <form>
-                <label htmlFor="preis">Bezeichnung</label>
+                <label htmlFor="bezeichnung">Bezeichnung</label>
                 <input
                   type="text"
+                  id="bezeichnung"
                   placeholder="Eingabe"
                   onChange={(event) => {
                     setBezeichnung(event.target.value);
@@ -149,6 +155,7 @@ function AddProperty() {
                 <label htmlFor="Baujahr">Baujahr</label>
                 <input
                   type="text"
+                  id="Baujahr"
                   placeholder="Eingabe"
                   onChange={(e) => {
                     setBaujahr(e.target.value);
@@ -158,9 +165,10 @@ function AddProperty() {
             </div>
             <div>
               <form>
-                <label>Liegenschafts Zusatz</label>
+                <label htmlFor="zusatz">Liegenschafts Zusatz</label>
                 <input
                   type="text"
+                  id="zusatz"
                   placeholder="Eingabe"
                   onChange={(e) => {
                     setzusatz(e.target.value);
@@ -170,9 +178,10 @@ function AddProperty() {
             </div>
             <div>
               <form>
-                <label>LiegenschaftNr</label>
+                <label htmlFor="liegnr">LiegenschaftNr</label>
                 <input
                   type="text"
+                  id="liegnr"
                   placeholder="Eingabe"
                   onChange={(e) => {
                     setliegNr(e.target.value);
@@ -180,7 +189,6 @@ function AddProperty() {
                 ></input>
               </form>
             </div>
-
             <button onClick={insertProperties}>Hinzufügen</button>
           </div>
         </div>
