@@ -2,23 +2,40 @@ import React from "react";
 import { Nav, NavLink, NavMenu } from "./NavbarElements";
 
 const Navbar = () => {
-  return (
-    <>
-      <Nav>
-        <NavMenu>
-          <NavLink to="/home" activestyle="true">
-            Go Back
-          </NavLink>
-          <NavLink to="/clickedProperty" activestyle="true">
-            Last Property
-          </NavLink>
-          <NavLink to="/addProperty" activestyle="true">
-            Liegenschaft Hinzufügen
-          </NavLink>
-        </NavMenu>
-      </Nav>
-    </>
-  );
+  if (
+    window.location.pathname === "/home" ||
+    window.location.pathname === "/"
+  ) {
+    return (
+      <>
+        <Nav>
+          <NavMenu>
+            <h1>Liegenschaftsliste</h1>
+          </NavMenu>
+        </Nav>
+      </>
+    );
+  } else if (window.location.pathname === "/addProperty") {
+    return (
+      <>
+        <Nav>
+          <NavMenu>
+            <h1>Liegenschaft hinzufügen</h1>
+          </NavMenu>
+        </Nav>
+      </>
+    );
+  } else if (window.location.pathname === "/clickedProperty") {
+    return (
+      <>
+        <Nav>
+          <NavMenu>
+            <h1>Liegenschaft bearbeiten</h1>
+          </NavMenu>
+        </Nav>
+      </>
+    );
+  }
 };
 
 export default Navbar;

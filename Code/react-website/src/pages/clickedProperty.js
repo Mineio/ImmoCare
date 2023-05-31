@@ -36,28 +36,6 @@ const ClickedProperty = () => {
     document.getElementById("LiegZusatz").value = property.LiegZusatz;
   };
 
-  const editProperty = (event) => {
-    event.preventDefault();
-    if (clicked) {
-      document.getElementById("edit").className = "clicked";
-      clicked = false;
-    } else {
-      document.getElementById("edit").classList.remove("clicked");
-      clicked = true;
-    }
-    const getInputFields = document.querySelectorAll(
-      'input:not([type="button"])'
-    );
-    if (getInputFields[0].disabled) {
-      for (let i = 0; i < getInputFields.length; i++) {
-        getInputFields[i].disabled = false;
-      }
-    } else {
-      for (let i = 0; i < getInputFields.length; i++) {
-        getInputFields[i].disabled = true;
-      }
-    }
-  };
 
   const saveProperty = (event) => {
     event.preventDefault();
@@ -93,34 +71,33 @@ const ClickedProperty = () => {
         <div className="leftSide">
           <div>
             <label htmlFor="LiegTyp">Liegenschaftstyp</label>
-            <input type="text" id="LiegTyp" disabled />
+            <input type="text" id="LiegTyp" />
           </div>
           <div>
             <label htmlFor="LiegNutzfläche">Nutzfläche</label>
-            <input type="number" id="LiegNutzfläche" disabled />
+            <input type="number" id="LiegNutzfläche" />
           </div>
           <div>
             <label htmlFor="LiegBezeichnung">Bezeichnung</label>
-            <input type="text" id="LiegBezeichnung" disabled />
+            <input type="text" id="LiegBezeichnung" />
           </div>
           <div>
             <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
             <input
               type="text"
               id="LiegAusbaustandart"
-              disabled
               value={property.LiegAusbaustandart}
             />
           </div>
           <div>
             <label htmlFor="LiegZustand">Zustand</label>
-            <input type="text" id="LiegZustand" disabled />
+            <input type="text" id="LiegZustand" />
           </div>
         </div>
         <div className="rightSide">
           <div>
             <label htmlFor="LiegGrundstückfläche">Grundstückfläche</label>
-            <input type="number" id="LiegGrundstückfläche" disabled />
+            <input type="number" id="LiegGrundstückfläche" />
           </div>
           <div>
             <label htmlFor="LiegBaujahr">Baujahr</label>
@@ -129,20 +106,18 @@ const ClickedProperty = () => {
               id="LiegBaujahr"
               min="1000"
               max={new Date().getFullYear()}
-              disabled
             />
           </div>
           <div>
             <label htmlFor="LiegZusatz">Zusatz</label>
-            <input type="text" id="LiegZusatz" disabled />
+            <input type="text" id="LiegZusatz" />
           </div>
           <div>
             <div>
               <input
                 type="button"
-                id="edit"
-                value="Bearbeiten"
-                onClick={editProperty}
+                value="Abbrechen"
+                onClick={() => window.location.replace("../home")}
               />
             </div>
             <div>

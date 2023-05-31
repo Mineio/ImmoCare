@@ -5,10 +5,6 @@
   box-sizing: border-box;
 }
 
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -44,6 +40,23 @@
   }
 }
 
+.headerPart {
+  display: flex;
+}
+
+.searchbar {
+  width: 70%;
+}
+
+.pageLinks {
+  margin-top: 50px;
+  width: 20%;
+}
+
+.pageLinks button{
+  margin-top: 3%;
+}
+
 .searchbarTop{
   margin-top: 50px;
   display:flex;
@@ -74,46 +87,57 @@
   justify-content: center;
 }
 
+.properties{
+  margin-left: 5%;
+  margin-bottom: 10%;
+  margin-right: 5%;
+}
+
 .properties table{ 
   margin-top: 50px;
   border-collapse: separate;
   border-spacing: 0 0px;
+  border-top: 0.5px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
   text-align: center;
+  flex: auto;
+  flex-direction: column;
 }
 
 .properties tbody td{
-  width: auto;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
   padding-top: 10px;
+  height: 60px;
   padding-bottom: 10px;
   padding-right: 30px;
   padding-left: 30px;
   position: static;
+  overflow:auto;
+
 }
 
-.properties tbody td:nth-child(1){
-  border-left: 2px solid black;
-}
-
-.properties tbody td:last-child{
-  border-right: 2px solid black;
-}
-
-.properties{
-  margin-left: 5rem;
+table th,
+table td {
+  flex: 1;
+  text-align: center;
+  border: 0.5px solid black;
+  padding: 8px;
+  border-left: none;
+  border-right: none;
 }
 
 .properties th{
   background-color: #ebedf1;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-collapse: collapse;
-  overflow: hidden;
 }
 
 .properties tbody tr:nth-child(odd){
   background-color: rgb(205, 205, 205);
+}
+
+.properties tbody tr:hover{
+  background-color: rgb(166, 166, 166)
 }
 
 .properties button{
@@ -121,14 +145,15 @@
   height: 40px;
 }
 
-.properties tbody tr:hover{
-  background-color: rgb(166, 166, 166)
+.app {
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 
-.Container{
+.container{
   width: 1000px;
   height: 600px;
-  margin-left: 165px;
   margin-top: 30px;
   border-radius: 15px 15px 15px 15px;
   background-color: #c6c9cf;
@@ -147,7 +172,6 @@
 .leftInputs label{
   margin-right: 30px;
   font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
   display: block;
 }
 .leftInputs select {
