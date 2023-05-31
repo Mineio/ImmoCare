@@ -21,7 +21,6 @@ const Home = () => {
     selectProperties();
   }, []);
 
-
   const selectProperties = async () => {
     await Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
@@ -34,6 +33,91 @@ const Home = () => {
       window.location.replace("../clickedProperty");
     };
   };
+
+  const calculateCost = (property) => {
+    const {
+      LiegTyp,
+      LiegGrundstückfläche,
+      LiegNutzfläche,
+      LiegAusbaustandart,
+      LiegZusatz,
+      LiegZustand
+    } = property;
+    if (LiegAusbaustandart === "normal" || LiegZustand === "normal") {
+      let cost = 0;
+      let anzWhg = 0;
+      let anzZimm = 0;
+      let flächeGrößterRaum = 0;
+
+      // Extrahiere Anzahl der Wohnungen aus dem Zusatz
+      if (LiegZusatz && LiegZusatz.includes("Anz. Whg.:")) {
+        const match = LiegZusatz.match(/Anz\. Whg\.: ([0-9]+)/);
+        if (match) {
+          anzWhg = parseInt(match[1], 10);
+        }
+      }
+      
+
+      // Extrahiere Anzahl der Zimmer aus dem Zusatz
+      if (LiegZusatz && LiegZusatz.includes("Anz. Zimm.:")) {
+        const match = LiegZusatz.match(/Anz\. Zimm\.: ([0-9.]+)/);
+        if (match) {
+          anzZimm = parseFloat(match[1]);
+        }
+      }
+
+      // Extrahiere Fläche des größten Raums aus dem Zusatz
+      if (
+        LiegTyp === "Gewerbeliegenschaft" &&
+        LiegZusatz &&
+        LiegZusatz.includes("Nutzfläche:")
+      ) {
+        const match = LiegZusatz.match(/Nutzfläche: ([0-9]+)m2/);
+        if (match) {
+          flächeGrößterRaum = parseInt(match[1], 10);
+        }
+      }
+      if (LiegTyp === "Einfamilienhaus") {
+        cost += 500 * LiegGrundstückfläche;
+        cost += 1000 * LiegNutzfläche;
+        cost += 30000 * anzZimm;
+      } else if (LiegTyp === "Mehrfamilienhaus" || LiegTyp === "MFH") {
+        cost += 500 * LiegGrundstückfläche;
+        cost += 1000 * LiegNutzfläche;
+        cost += 100000 * anzWhg;
+      } else if (LiegTyp === "Gewerbeliegenschaft") {
+        cost += 200 * LiegGrundstückfläche;
+        cost += 800 * LiegNutzfläche;
+        cost += 1000 * flächeGrößterRaum;
+      }
+
+      //Zahl für die Berechnung von den Prozentrechnungen
+      let costRatio = 0;
+
+      if (LiegAusbaustandart === "einfach") {
+        costRatio -= cost * 0.2; 
+      } else if (LiegAusbaustandart === "luxuriös") {
+        costRatio += cost * 0.2; 
+      }
+      if (LiegZustand === "sanierungsbedürftig") {
+        costRatio -= cost * 0.25; 
+      } else if (LiegZustand === "neuwertig") {
+        costRatio += cost * 0.25; 
+      }
+
+      console.log(cost + " " + costRatio);
+      if (costRatio !== 0) {
+        cost += costRatio;
+      }
+
+      return numberWithCommas(cost);
+    }
+  };
+
+  //Trennung für jede dritte Ziffer mit einem Hochkomma.
+  function numberWithCommas(number) {
+    return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, "'");
+  }
 
   return (
     <div className="properties">
@@ -215,15 +299,16 @@ const Home = () => {
                 })
 
                 .map((val, key) => {
+                  const cost = calculateCost(val);
                   return (
                     <tr onClick={navigateToProperty(val)} key={key}>
-                      <td id="liegKosten">{val.LiegBezeichnung}</td>
+                      <td id="liegBezeichnung">{val.LiegBezeichnung}</td>
                       <td id="liegNR">{val.LiegTyp}</td>
                       <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
                       <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
                       <td id="liegZustand">{val.LiegZustand}</td>
-                      <td id="">{val.LiegBaujahr}</td>
-                      <td id="liegKosten">{"Kosten Haus"}</td>
+                      <td id="liegBaujahr">{val.LiegBaujahr}</td>
+                      <td id="liegKosten">{cost}</td>
                       <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
                     </tr>
                   );
