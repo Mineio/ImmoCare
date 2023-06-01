@@ -80,7 +80,7 @@ const Home = () => {
         cost += 500 * LiegGrundstückfläche;
         cost += 1000 * LiegNutzfläche;
         cost += 30000 * anzZimm;
-      } else if (LiegTyp === "Mehrfamilienhaus" || LiegTyp === "MFH") {
+      } else if (LiegTyp === "Mehrfamilienhaus") {
         cost += 500 * LiegGrundstückfläche;
         cost += 1000 * LiegNutzfläche;
         cost += 100000 * anzWhg;
@@ -137,7 +137,7 @@ const Home = () => {
               <form>
                 <label htmlFor="grundStückB">Grundstückfläche bis</label>
                 <select
-                  id="grundStückB"
+                  id="LiegTyp"
                   onChange={(e) => setgrundStückB(e.target.value)}
                 >
                   <option value="default">beliebig</option>
