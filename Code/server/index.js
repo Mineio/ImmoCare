@@ -49,7 +49,6 @@ app.put("/updateProperty", (req, res) => {
   );
 });
 
-
 //app.get("/getNewProperties", (req, res) => {
 
 app.post("/insert", (req, res) => {
@@ -62,11 +61,10 @@ app.post("/insert", (req, res) => {
   const baujahr = req.body.Baujahr;
   const zusatz = req.body.zusatz;
   const typ = req.body.Liegenschaftstyp;
-  
+
   db.query(
-    "INSERT INTO TLiegenschaften(LiegNR, LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?,?)",
     [
-      nr,
       typ,
       bezeichnung,
       baujahr,

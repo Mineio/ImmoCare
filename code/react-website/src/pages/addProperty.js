@@ -10,7 +10,6 @@ const AddProperty = () => {
   const [Baujahr, setBaujahr] = useState("");
   const [Liegenschaftstyp, setLiegenschaftstyp] = useState("");
   const [zusatz, setzusatz] = useState("");
-  const [liegNr, setliegNr] = useState("");
   const [Bezeichnung, setBezeichnung] = useState("");
 
   const insertProperties = () => {
@@ -19,7 +18,6 @@ const AddProperty = () => {
       Nutzfläche: Nutzfläche,
       ausbauSt: ausbauSt,
       zustand: zustand,
-      liegNr: liegNr,
       Liegenschaftstyp: Liegenschaftstyp,
       zusatz: zusatz,
       Baujahr: Baujahr,
@@ -53,7 +51,6 @@ const AddProperty = () => {
                     <option>Mehrfamilienhaus</option>
                     <option>Hof</option>
                     <option>Loft</option>
-                    <option>MFH</option>
                     <option>Reiheneinfamilienhaus</option>
                     <option>Eckhaus</option>
                     <option>Gebwerbeliegenschaft</option>
@@ -176,25 +173,13 @@ const AddProperty = () => {
                 ></input>
               </form>
             </div>
-            <div>
-              <form>
-                <label htmlFor="liegnr">LiegenschaftNr</label>
-                <input
-                  type="text"
-                  id="liegnr"
-                  placeholder="Eingabe"
-                  onChange={(e) => {
-                    setliegNr(e.target.value);
-                  }}
-                ></input>
-              </form>
-            </div>
+
             <button onClick={insertProperties}>Hinzufügen</button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default AddProperty;
