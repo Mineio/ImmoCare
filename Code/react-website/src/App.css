@@ -140,9 +140,10 @@ table td {
   background-color: rgb(166, 166, 166)
 }
 
-.properties button{
+button{
   width: 170px;
   height: 40px;
+  margin: 5px;
 }
 
 .app {

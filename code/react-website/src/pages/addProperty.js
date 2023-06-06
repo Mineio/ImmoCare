@@ -189,8 +189,8 @@ const AddProperty = () => {
                 ></input>
               </form>
             </div>
-            <button onClick={() => window.location.replace("../home")}>Abbrechen</button>
-            <button onClick={insertProperties}>Hinzufügen</button>
+            <button class="buttonAdd" onClick={() => window.location.replace("../home")}>Abbrechen</button>
+            <button class="buttonAdd" onClick={insertProperties}>Hinzufügen</button>
           </div>
         </div>
       </div>
