@@ -28,8 +28,8 @@ const AddProperty = () => {
   };
 
   return (
-    <div className="App">
-      <div className="Container">
+    <div className="app">
+      <div className="container">
         <div className="inputfields">
           <div className="leftInputs">
             <div className="left">
@@ -174,7 +174,24 @@ const AddProperty = () => {
               </form>
             </div>
 
+
             <button onClick={insertProperties}>Hinzufügen</button>
+            <div>
+              <form>
+                <label htmlFor="liegnr">LiegenschaftNr</label>
+                <input
+                  type="text"
+                  id="liegnr"
+                  placeholder="Eingabe"
+                  onChange={(e) => {
+                    setliegNr(e.target.value);
+                  }}
+                ></input>
+              </form>
+            </div>
+            <button class="buttonAdd" onClick={() => window.location.replace("../home")}>Abbrechen</button>
+            <button class="buttonAdd" onClick={insertProperties}>Hinzufügen</button>
+
           </div>
         </div>
       </div>

@@ -5,23 +5,14 @@ import Axios from "axios";
 const ClickedProperty = () => {
   let clicked = true;
 
-  const [property, setProperty] = useState({
-    LiegTyp: "",
-    LiegNutzfläche: 0,
-    LiegBezeichnung: "",
-    LiegAusbaustandart: "",
-    LiegZustand: "",
-    LiegGrundstückfläche: 0,
-    LiegBaujahr: 0,
-    LiegZusatz: "",
-  });
+  const [property, setProperty] = useState({});
 
   useEffect(() => {
     setStartProperty();
   }, []);
 
-  const setStartProperty = () => {
-    const property = JSON.parse(localStorage.getItem("property"));
+  const setStartProperty = async() => {
+    const property = await JSON.parse(localStorage.getItem("property"));
     setProperty(property);
     document.getElementById("LiegTyp").value = property.LiegTyp;
     document.getElementById("LiegNutzfläche").value = property.LiegNutzfläche;
@@ -32,36 +23,14 @@ const ClickedProperty = () => {
     document.getElementById("LiegGrundstückfläche").value =
       property.LiegGrundstückfläche;
     document.getElementById("LiegBaujahr").value = property.LiegBaujahr;
-
     document.getElementById("LiegZusatz").value = property.LiegZusatz;
-  };
-
-  const editProperty = (event) => {
-    event.preventDefault();
-    if (clicked) {
-      document.getElementById("edit").className = "clicked";
-      clicked = false;
-    } else {
-      document.getElementById("edit").classList.remove("clicked");
-      clicked = true;
-    }
-    const getInputFields = document.querySelectorAll(
-      'input:not([type="button"])'
-    );
-    if (getInputFields[0].disabled) {
-      for (let i = 0; i < getInputFields.length; i++) {
-        getInputFields[i].disabled = false;
-      }
-    } else {
-      for (let i = 0; i < getInputFields.length; i++) {
-        getInputFields[i].disabled = true;
-      }
-    }
   };
 
   const saveProperty = (event) => {
     event.preventDefault();
-    property.LiegTyp = document.getElementById("LiegTyp").value;
+
+    console.log(document.getElementById('LiegTyp').value)
+    property.LiegTyp = document.getElementById('LiegTyp').value;
     property.LiegNutzfläche = document.getElementById("LiegNutzfläche").value;
     property.LiegBezeichnung = document.getElementById("LiegBezeichnung").value;
     property.LiegAusbaustandart =
@@ -75,6 +44,7 @@ const ClickedProperty = () => {
 
     localStorage.setItem("property", JSON.stringify(property));
     updateData();
+    window.location.replace("../home");
   };
 
   const updateData = async () => {
@@ -84,70 +54,82 @@ const ClickedProperty = () => {
       console.log("success");
     });
   };
-  
 
   return (
     <div className="clickedProperty">
-      <h1>Liegenschaft bearbeiten</h1>
-      <form>
-        <div className="leftSide">
+      <form className="inputFields">
+        <div className="bezeichnung">
+          <label htmlFor="LiegBezeichnung">Bezeichnung</label>
+          <input type="text" id="LiegBezeichnung" />
+        </div>
+        <div className="doubleInputs">
           <div>
             <label htmlFor="LiegTyp">Liegenschaftstyp</label>
-            <input type="text" id="LiegTyp" disabled />
+            <select id="LiegTyp">
+              <option value="Eigentumswohnung">Eigentumswohnung</option>
+              <option value="Einfamilienhaus">Einfamilienhaus</option>
+              <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+              <option value="Loft">Loft</option>
+              <option value="Hof">Hof</option>
+              <option value="Reiheneinfamilienhaus">Reiheneinfamilienhaus</option>
+              <option value="Gewerbeliegenschaft">Gewerbeliegenschaft</option>
+              <option value="Eckhaus">Eckhaus</option>
+            </select>
           </div>
-          <div>
-            <label htmlFor="LiegNutzfläche">Nutzfläche</label>
-            <input type="number" id="LiegNutzfläche" disabled />
-          </div>
-          <div>
-            <label htmlFor="LiegBezeichnung">Bezeichnung</label>
-            <input type="text" id="LiegBezeichnung" disabled />
-          </div>
-          <div>
-            <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
-            <input
-              type="text"
-              id="LiegAusbaustandart"
-              disabled
-              value={property.LiegAusbaustandart}
-            />
-          </div>
-          <div>
+          <div className="rightSide">
             <label htmlFor="LiegZustand">Zustand</label>
-            <input type="text" id="LiegZustand" disabled />
+            <select id="LiegZustand">
+              <option value="renoviert">renoviert</option>
+              <option value="sanierungsbedürftig">sanierungsbedürftig</option>
+              <option value="neuwertig">neuwertig</option>
+              <option value="normal">normal</option>
+            </select>
           </div>
         </div>
-        <div className="rightSide">
+        <div className="doubleInputs">
           <div>
-            <label htmlFor="LiegGrundstückfläche">Grundstückfläche</label>
-            <input type="number" id="LiegGrundstückfläche" disabled />
+            <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
+             <select id="LiegAusbaustandart">
+              <option value="einfach">einfach</option>
+              <option value="normal">normal</option>
+              <option value="rustikal">rustikal</option>
+              <option value="luxeriös">luxeriös</option>
+            </select>
           </div>
-          <div>
+          <div className="rightSide">
             <label htmlFor="LiegBaujahr">Baujahr</label>
             <input
               type="number"
               id="LiegBaujahr"
               min="1000"
               max={new Date().getFullYear()}
-              disabled
             />
           </div>
+        </div>
+        <div className="doubleInputs">
           <div>
-            <label htmlFor="LiegZusatz">Zusatz</label>
-            <input type="text" id="LiegZusatz" disabled />
+            <label htmlFor="LiegGrundstückfläche">Grundstückfläche</label>
+            <input type="number" id="LiegGrundstückfläche" />
           </div>
+          <div className="rightSide">
+            <label htmlFor="LiegNutzfläche">Nutzfläche</label>
+            <input type="number" id="LiegNutzfläche" />
+          </div>
+        </div>
+        <div>
+          <label htmlFor="LiegZusatz">Zusatz</label>
+          <input type="text" id="LiegZusatz" />
+        </div>
+        <div className="doubleInputs">
           <div>
-            <div>
-              <input
-                type="button"
-                id="edit"
-                value="Bearbeiten"
-                onClick={editProperty}
-              />
-            </div>
-            <div>
-              <input type="button" value="Speichern" onClick={saveProperty} />
-            </div>
+            <input
+              type="button"
+              value="Abbrechen"
+              onClick={() => window.location.replace("../home")}
+            />
+          </div>
+          <div className="rightSide">
+            <input type="button" value="Speichern" onClick={saveProperty} />
           </div>
         </div>
       </form>
