@@ -58,7 +58,7 @@
 }
 
 .searchbarTop{
-  margin-top: 50px;
+  margin-top: 30px;
   display:flex;
 }
 
@@ -277,6 +277,31 @@ input[id="LiegNutzfläche"]::-webkit-inner-spin-button {
   opacity: 0
 }
 
+
+}
+.searchbox input[type="text"] {
+  background-color: white;
+  background-image: url('./Lupe.png');
+  background-size: 10px;
+  background-position: 5px 5px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  height: 25px;
+  width: 350px;
+  border-radius: 12px 12px 12px 12px;
+  margin-top: 60px;
+  margin-left: 10px;
+}
+.propertysearch{
+  display: flex;
+}
+.searchbox{
+  flex: 1;
+}
+.filterbutton{
+  margin-top: 55px;
+  margin-right: 450px;
+  
 input[id="LiegGrundstückfläche"]::-webkit-inner-spin-button {
   opacity: 0
 }
