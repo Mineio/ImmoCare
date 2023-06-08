@@ -1,73 +1,159 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import ClickedProperty from "./clickedProperty";
 
 const Home = () => {
   const [property, setProperty] = useState([]);
 
+  const getLocalStorageValue = (key, defaultValue = "") => {
+    return localStorage.getItem(key) || defaultValue;
+  };
+
   const [grundStückB, setgrundStückB] = useState(
-    localStorage.getItem("grundStückB") || "default"
+    getLocalStorageValue("grundStückB", "alle")
   );
   const [ausbauSt, setausbauSt] = useState(
-    localStorage.getItem("ausbauSt") || "default"
+    getLocalStorageValue("ausbauSt", "alle")
   );
   const [zustand, setzustand] = useState(
-    localStorage.getItem("zustand") || "default"
+    getLocalStorageValue("zustand", "alle")
   );
   const [baujahrVon, setbaujahrVon] = useState(
-    localStorage.getItem("baujahrVon") || "default"
+    getLocalStorageValue("baujahrVon", "alle")
   );
-  const [Baujahrbis, setBaujahrbis] = useState(
-    localStorage.getItem("Baujahrbis") || "default"
+  const [baujahrBis, setbaujahrBis] = useState(
+    getLocalStorageValue("baujahrBis", "alle")
   );
-  const [Liegenschaftstyp, setLiegenschaftstyp] = useState(
-    localStorage.getItem("Liegenschaftstyp") || "default"
+  const [liegTyp, setliegTyp] = useState(
+    getLocalStorageValue("liegTyp", "alle")
   );
-  const [kostenvon, setkostenvon] = useState(
-    localStorage.getItem("kostenvon") || "default"
+  const [kostenVon, setkostenVon] = useState(getLocalStorageValue("kostenVon"));
+  const [grundStückV, setgrundStückV] = useState(
+    getLocalStorageValue("grundStückV", "alle")
   );
-  const [grundStückvon, setgrundStückvon] = useState(
-    localStorage.getItem("grundStückvon") || "default"
+  const [nutzVon, setnutzVon] = useState(
+    getLocalStorageValue("nutzVon", "alle")
   );
-  const [nutzvon, setnutzvon] = useState(
-    localStorage.getItem("nutzvon") || "default"
-  );
-  const [kostenbis, setkostenbis] = useState(
-    localStorage.getItem("kostenbis") || "default"
-  );
-  const [nutzbis, setnutzbis] = useState(
-    localStorage.getItem("nutzbis") || "default"
+  const [kostenBis, setkostenBis] = useState(getLocalStorageValue("kostenBis"));
+  const [nutzBis, setnutzBis] = useState(
+    getLocalStorageValue("nutzBis", "alle")
   );
   const [suchbegriff, setSuchbegriff] = useState(
-    localStorage.getItem("suchbegriff") || ""
+    getLocalStorageValue("suchbegriff", "")
   );
 
   useEffect(() => {
     selectProperties();
+    // Speichern der Filterwerte im Local Storage
+    const filterValues = {
+      grundStückB,
+      ausbauSt,
+      zustand,
+      baujahrVon,
+      baujahrBis,
+      liegTyp,
+      kostenVon,
+      grundStückV,
+      nutzVon,
+      kostenBis,
+      nutzBis,
+      suchbegriff,
+    };
+    Object.entries(filterValues).forEach(([key, value]) => {
+      localStorage.setItem(key, value);
+    });
+  }, [
+    grundStückB,
+    ausbauSt,
+    zustand,
+    baujahrVon,
+    baujahrBis,
+    liegTyp,
+    kostenVon,
+    grundStückV,
+    nutzVon,
+    kostenBis,
+    nutzBis,
+    suchbegriff,
+  ]);
+
+  useEffect(() => {
+    setFilterStart();
   }, []);
+
+  const setFilterStart = () => {
+    const filterValues = [
+      { id: "liegTyp", key: "liegTyp" },
+      { id: "kostenVon", key: "kostenVon" },
+      { id: "grundStückV", key: "grundStückV" },
+      { id: "nutzVon", key: "nutzVon" },
+      { id: "baujahrVon", key: "baujahrVon" },
+      { id: "zustand", key: "zustand" },
+      { id: "ausbauSt", key: "ausbauSt" },
+      { id: "kostenBis", key: "kostenBis" },
+      { id: "grundStückB", key: "grundStückB" },
+      { id: "nutzBis", key: "nutzBis" },
+      { id: "baujahrBis", key: "baujahrBis" },
+    ];
+
+    filterValues.forEach((filter) => {
+      const storedValue = localStorage.getItem(filter.key);
+      if (storedValue !== "alle" && storedValue !== "null") {
+        document.querySelector(`#${filter.id}`).value = storedValue;
+      }
+    });
+  };
 
   const selectProperties = async () => {
     await Axios.get("http://localhost:3001/getProperties").then((response) => {
       setProperty(response.data);
     });
   };
+
   const handleFilterReset = () => {
-    localStorage.clear();
-    setgrundStückB("default");
-    setausbauSt("default");
-    setbaujahrVon("default");
-    setnutzbis("default");
-    setzustand("default");
-    setgrundStückvon("default");
-    setgrundStückB("default");
-    setkostenvon("default");
-    setkostenbis("default");
-    setnutzvon("default");
-    setBaujahrbis("default");
+    const keysToRemove = [
+      "grundStückB",
+      "ausbauSt",
+      "zustand",
+      "baujahrVon",
+      "baujahrBis",
+      "liegTyp",
+      "kostenVon",
+      "grundStückV",
+      "nutzVon",
+      "kostenBis",
+      "nutzBis",
+      "suchbegriff"
+    ];
+    
+    keysToRemove.forEach(key => {
+      localStorage.removeItem(key);
+    });
+    
+    setausbauSt("alle");
+    setbaujahrBis("alle");
+    setbaujahrVon("alle");
+    setgrundStückB("alle");
+    setgrundStückV("alle");
+    setkostenBis("");
+    setkostenVon("");
+    setliegTyp("alle");
+    setnutzBis("alle");
+    setzustand("alle");
+    setnutzVon("alle");
     setSuchbegriff("");
-    setLiegenschaftstyp("default");
+
+    const getAllDropdowns = document.querySelectorAll("select");
+    getAllDropdowns.forEach((dropdown) => {
+      dropdown.value = "alle";
+    });
+
+    const getAllInputNumbers = document.querySelectorAll("input[type=number]");
+    getAllInputNumbers.forEach((input) => {
+      input.value = "";
+    });
   };
+
   const navigateToProperty = (clickedLiegenschaft) => {
     return () => {
       localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
@@ -75,332 +161,6 @@ const Home = () => {
     };
   };
 
-
-  useEffect(() => {
-    // Speichern der Filterwerte im Local Storage
-    localStorage.setItem("grundStückB", grundStückB);
-    localStorage.setItem("ausbauSt", ausbauSt);
-    localStorage.setItem("zustand", zustand);
-    localStorage.setItem("baujahrVon", baujahrVon);
-    localStorage.setItem("Baujahrbis", Baujahrbis);
-    localStorage.setItem("Liegenschaftstyp", Liegenschaftstyp);
-    localStorage.setItem("kostenvon", kostenvon);
-    localStorage.setItem("grundStückvon", grundStückvon);
-    localStorage.setItem("nutzvon", nutzvon);
-    localStorage.setItem("kostenbis", kostenbis);
-    localStorage.setItem("nutzbis", nutzbis);
-    localStorage.setItem("suchbegriff", suchbegriff);
-  }, [
-    grundStückB,
-    ausbauSt,
-    zustand,
-    baujahrVon,
-    Baujahrbis,
-    Liegenschaftstyp,
-    kostenvon,
-    grundStückvon,
-    nutzvon,
-    kostenbis,
-    nutzbis,
-    suchbegriff,
-  ]);
-
-  return (
-    <div className="properties">
-      <div className="propertysearch">
-        <div className="searchbox">
-          <label>Liegbezeichnung</label>
-          <input
-            type="text"
-            value={suchbegriff}
-            onChange={(e) => {
-              setSuchbegriff(e.target.value);
-            }}
-          />
-        </div>
-        <div className="filterbutton">
-          <button onClick={handleFilterReset}>Filter zurücksetzen</button>
-        </div>
-      </div>
-
-      <div className="searchbarTop">
-        <div>
-          <form>
-            <label htmlFor="wordsearch">Liegenschaftstyp</label>
-            <select
-              id="grundStückB"
-              onChange={(e) => {
-                setLiegenschaftstyp(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="Eigentumswohnung">Eigentumswohnung</option>
-              <option value="Einfamilienhaus">Einfamilienhaus</option>
-              <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
-              <option value="Hof">Hof</option>
-              <option value="Loft">Loft</option>
-              <option value="Reiheneinfamilienhaus">
-                Reiheneinfamilienhaus
-              </option>
-              <option value="Eckhaus">Eckhaus</option>
-              <option value="Gewerbeliegenschaft">Gewerbeliegenschaft</option>
-            </select>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label for="age">Kosten von</label>
-            <input
-              type="number"
-              id="tentacles"
-              name="tentacles"
-              min="0"
-              max="1000000"
-              step={10000}
-              onChange={(e) => {
-                setkostenvon(e.target.value);
-              }}
-            />
-          </form>
-        </div>
-        <div>
-          <form>
-            <label htmlFor="grundStückB">Grundstückfläche von</label>
-            <select
-              id="grundStückB"
-              onChange={(e) => {
-                setgrundStückvon(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="300">300m²</option>
-              <option value="600">600m²</option>
-              <option value="900">900m²</option>
-              <option value="1200">1200m²</option>
-              <option value="1500">1500m²</option>
-              <option value="2000">2000m²</option>
-            </select>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label htmlFor="nutzFlB">Nutzfläche von</label>
-            <select
-              id="nutzvon"
-              onChange={(e) => {
-                setnutzvon(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="50">50m²</option>
-              <option value="100">100m²</option>
-              <option value="250">150m²</option>
-              <option value="200">200m²</option>
-              <option value="250">250m²</option>
-              <option value="300">300m²</option>
-              <option value="350">350m²</option>
-            </select>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label htmlFor="baujahrVon">Baujahr von</label>
-            <select
-              id="baujahrVon"
-              onChange={(e) => {
-                setbaujahrVon(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="1840">1940</option>
-              <option value="1960">1960</option>
-              <option value="1980">1980</option>
-              <option value="2000">2000</option>
-              <option value="2020">2020</option>
-            </select>
-          </form>
-        </div>
-
-        <div>
-          <form>
-            <label htmlFor="zustand">Zustand</label>
-            <select
-              id="zustand"
-              onChange={(e) => {
-                setzustand(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="normal">normal</option>
-              <option value="neuwertig">neuwertig</option>
-              <option value="sanierungsbedürftig">sanierungsbedürftig</option>
-              <option value="renoviert">renoviert</option>
-            </select>
-          </form>
-        </div>
-      </div>
-      <div className="searchbarBottom">
-        <div>
-          <form>
-            <label htmlFor="ausbauSt">Ausbaustandart</label>
-            <select
-              id="ausbauSt"
-              onChange={(e) => {
-                setausbauSt(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="einfach">einfach</option>
-              <option value="normal">normal</option>
-              <option value="luxeriös">luxeriös</option>
-              <option value="rustikal">rustikal</option>
-            </select>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label for="age">Kosten bis</label>
-            <input
-              type="number"
-              id="tentacles"
-              name="tentacles"
-              min="0"
-              max="1000000"
-              step={10000}
-              onChange={(e) => {
-                setkostenbis(e.target.value);
-              }}
-            />
-          </form>
-        </div>
-        <div>
-          <form>
-            <label htmlFor="grundStückB">Grundstückfläche bis</label>
-            <select
-              id="grundStückB"
-              onChange={(e) => {
-                setgrundStückB(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="300">300m²</option>
-              <option value="600">600m²</option>
-              <option value="900">900m²</option>
-              <option value="1200">1200m²</option>
-              <option value="1500">1500m²</option>
-              <option value="2000">2000m²</option>
-            </select>
-          </form>
-        </div>
-        <div>
-          <form>
-            <label htmlFor="nutzFlB">Nutzfläche bis</label>
-            <select
-              id="nutzvon"
-              onChange={(e) => {
-                setnutzbis(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="50">50m²</option>
-              <option value="100">100m²</option>
-              <option value="150">150m²</option>
-              <option value="200">200m²</option>
-              <option value="250">250m²</option>
-              <option value="300">300m²</option>
-              <option value="350">350m²</option>
-            </select>
-          </form>
-        </div>
-
-        <div>
-          <form>
-            <label htmlFor="">Baujahr bis</label>
-            <select
-              id="baujahrBis"
-              onChange={(e) => {
-                setBaujahrbis(e.target.value);
-              }}
-            >
-              <option value="default">beliebig</option>
-              <option value="1940">1940</option>
-              <option value="1960">1960</option>
-              <option value="1980">1980</option>
-              <option value="2000">2000</option>
-              <option value="2020">2020</option>
-            </select>
-          </form>
-        </div>
-        <div></div>
-      </div>
-
-      <div className="">
-        <div className="listProperties">
-          <table>
-            <thead>
-              <tr>
-                <th>LiegBezeichnung</th>
-                <th>Liegenschaftstyp</th>
-                <th>Nutzfläche</th>
-                <th>Ausbaustandard</th>
-                <th>Zustand</th>
-                <th>Baujahr</th>
-                <th>Kosten</th>
-                <th>Grundstückfläche</th>
-              </tr>
-            </thead>
-            <tbody>
-              {property
-                .filter((property) => {
-                  // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
-                  // ..
-                  // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
-                  if (
-                    Baujahrbis !== "default" ||
-                    baujahrVon !== "default" ||
-                    grundStückB !== "default" ||
-                    ausbauSt !== "default" ||
-                    zustand !== "default" ||
-                    nutzvon !== "default" ||
-                    kostenbis !== "default" ||
-                    nutzbis !== "default" ||
-                    grundStückvon !== "default" ||
-                    kostenvon !== "default" ||
-                    Liegenschaftstyp !== "default" ||
-                    suchbegriff !== ""
-                  ) {
-                    // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
-                    return (
-                      (suchbegriff === "" ||
-                        property.LiegBezeichnung.toLowerCase().includes(
-                          suchbegriff.toLowerCase()
-                        )) &&
-                      (Baujahrbis === "default" ||
-                        property.LiegBaujahr <= Baujahrbis) &&
-                      (baujahrVon === "default" ||
-                        property.LiegBaujahr >= baujahrVon) &&
-                      (grundStückB === "default" ||
-                        property.LiegGrundstückfläche <= grundStückB) &&
-                      (ausbauSt === "default" ||
-                        property.LiegAusbaustandart === ausbauSt) &&
-                      (zustand === "default" ||
-                        property.LiegZustand === zustand) &&
-                      (Liegenschaftstyp === "default" ||
-                        property.LiegTyp === Liegenschaftstyp) &&
-                      (grundStückvon === "default" ||
-                        property.LiegGrundstückfläche >= grundStückvon) &&
-                      (nutzvon === "default" ||
-                        property.LiegNutzfläche >= nutzvon) &&
-                      (nutzbis === "default" ||
-                        property.LiegNutzfläche <= nutzbis)
-                    );
-                  } else {
-                    // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
-                    return true;
-                  }
-                })
-
-                .map((val, key) => {
   const calculateCost = (property) => {
     const {
       LiegTyp,
@@ -486,218 +246,330 @@ const Home = () => {
 
   return (
     <div className="properties">
-      <div className="headerPart">
-        <div className="searchbar">
-          <div className="searchbarTop">
-            <div>
-              <form>
-                <label htmlFor="wordsearch">Liegenschaftstyp</label>
-                <input
-                  type="text"
-                  id="wordsearch"
-                  placeholder="Suchen"
-                  onChange={(e) => setLiegenschaftstyp(e.target.value)}
-                />
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="grundStückB">Grundstückfläche bis</label>
-                <select
-                  id="LiegTyp"
-                  onChange={(e) => setgrundStückB(e.target.value)}
-                >
-                  <option value="default">beliebig</option>
-                  <option value="300">300m²</option>
-                  <option value="600">600m²</option>
-                  <option value="900">900m²</option>
-                  <option value="1200">1200m²</option>
-                  <option value="1500">1500m²</option>
-                  <option value="2000">2000m²</option>
-                </select>
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="nutzFlB">Nutzfläche bis</label>
-                <select
-                  id="nutzFlB"
-                  onChange={(e) => setnutzFlB(e.target.value)}
-                >
-                  <option value="default">beliebig</option>
-                  <option value="200">200m²</option>
-                  <option value="400">400m²</option>
-                  <option value="600">600m²</option>
-                  <option value="800">800m²</option>
-                  <option value="1000">1000m²</option>
-                  <option value="1500">1500m²</option>
-                </select>
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="ausbauSt">Ausbaustand</label>
-                <select
-                  id="ausbauSt"
-                  onChange={(e) => setausbauSt(e.target.value)}
-                >
-                  <option value="default">beliebig</option>
-                  <option value="einfach">einfach</option>
-                  <option value="normal">normal</option>
-                  <option value="luxeriös">luxeriös</option>
-                </select>
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="zustand">Zustand</label>
-                <select
-                  id="zustand"
-                  onChange={(e) => setzustand(e.target.value)}
-                >
-                  <option value="default">beliebig</option>
-                  <option value="normal">normal</option>
-                  <option value="neuwertig">neuwertig</option>
-                  <option value="sanierungsbedürftig">
-                    sanierungsbedürftig
-                  </option>
-                </select>
-              </form>
-            </div>
-          </div>
-          <div className="searchbarBottom">
-            <div>
-              <form>
-                <label htmlFor="chfVon">CHF von</label>
-                <input
-                  type="number"
-                  id="chfVon"
-                  placeholder="Beliebig"
-                  onChange={(e) => setchfVon(e.target.value)}
-                />
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="chfBis">CHF bis</label>
-                <input
-                  type="number"
-                  id="chfBis"
-                  placeholder="Beliebig"
-                  onChange={(e) => setchfBis(e.target.value)}
-                />
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="baujahrVon">Baujahr von</label>
-                <select
-                  id="baujahrVon"
-                  onChange={(e) => setbaujahrVon(e.target.value)}
-                >
-                  <option value="default">beliebig</option>
-                  <option value="1800">1800</option>
-                  <option value="1850">1850</option>
-                  <option value="1900">1900</option>
-                  <option value="1950">1950</option>
-                  <option value="2000">2000</option>
-                  <option value="2020">2020</option>
-                </select>
-              </form>
-            </div>
-            <div>
-              <form>
-                <label htmlFor="">Baujahr bis</label>
-                <select
-                  id="baujahrBis"
-                  onChange={(e) => setBaujahrbis(e.target.value)}
-                >
-                  <option value="default">beliebig</option>
-                  <option value="1800">1800</option>
-                  <option value="1850">1850</option>
-                  <option value="1900">1900</option>
-                  <option value="1950">1950</option>
-                  <option value="2000">2000</option>
-                  <option value="2020">2020</option>
-                </select>
-              </form>
-            </div>
-            <div></div>
-          </div>
+      <div className="propertysearch">
+        <div className="searchbox">
+          <label>Liegbezeichnung</label>
+          <input
+            type="text"
+            value={suchbegriff}
+            id="suchBegriff"
+            onChange={(e) => {
+              setSuchbegriff(e.target.value);
+            }}
+          />
         </div>
-        <div className="pageLinks">
-          <button type="lastProperty" onClick={() => window.location.replace("../clickedProperty")}>Letzte Liegenschaft</button>
-          <button type="addProperty" onClick={() => window.location.replace("../addProperty")}>Liegenschaft hinzufügen</button>
+        <div className="filterbutton">
+          <button onClick={handleFilterReset}>Filter zurücksetzen</button>
         </div>
       </div>
 
-      <div className="listProperties">
-        <table>
-          <thead>
-            <tr>
-              <th>Bezeichnung</th>
-              <th>Liegenschaftstyp</th>
-              <th>Baujahr</th>
-              <th>Grundstückfläche</th>
-              <th>Nutzfläche</th>
-              <th>Ausbaustandard</th>
-              <th>Zustand</th>
-              <th>Kosten</th>
-            </tr>
-          </thead>
-          <tbody>
-            {property
-              .filter((property) => {
-                // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
-                if (
-                  Baujahrbis !== "beliebig" ||
-                  baujahrVon !== "beliebig" ||
-                  grundStückB !== "beliebig" ||
-                  nutzFlB !== "beliebig" ||
-                  ausbauSt !== "beliebig" ||
-                  zustand !== "beliebig" ||
-                  Liegenschaftstyp !== "beliebig"
-                ) {
-                  // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
-                  return (
-                    (Baujahrbis === "beliebig" ||
-                      property.LiegBaujahr <= Baujahrbis) &&
-                    (baujahrVon === "beliebig" ||
-                      property.LiegBaujahr >= baujahrVon) &&
-                    (grundStückB === "beliebig" ||
-                      property.LiegGrundstückfläche <= grundStückB) &&
-                    (nutzFlB === "beliebig" ||
-                      property.LiegNutzfläche <= nutzFlB) &&
-                    (ausbauSt === "beliebig" ||
-                      property.LiegAusbaustandart === ausbauSt) &&
-                    (zustand === "beliebig" ||
-                      property.LiegZustand === zustand) &&
-                    (Liegenschaftstyp === "beliebig" ||
-                      property.LiegTyp === Liegenschaftstyp)
-                  );
-                } else {
-                  // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
-                  return true;
-                }
-              })
+      <div className="searchbarTop">
+        <div>
+          <form>
+            <label htmlFor="wordsearch">Liegenschaftstyp</label>
+            <select
+              id="liegTyp"
+              onChange={(e) => {
+                setliegTyp(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="Eigentumswohnung">Eigentumswohnung</option>
+              <option value="Einfamilienhaus">Einfamilienhaus</option>
+              <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+              <option value="Hof">Hof</option>
+              <option value="Loft">Loft</option>
+              <option value="Reiheneinfamilienhaus">
+                Reiheneinfamilienhaus
+              </option>
+              <option value="Eckhaus">Eckhaus</option>
+              <option value="Gewerbeliegenschaft">Gewerbeliegenschaft</option>
+            </select>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="age">Kosten von</label>
+            <input
+              type="number"
+              id="kostenVon"
+              min="0"
+              max="1000000"
+              step={10000}
+              onChange={(e) => {
+                setkostenVon(e.target.value);
+              }}
+            />
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="grundStückV">Grundstückfläche von</label>
+            <select
+              id="grundStückV"
+              onChange={(e) => {
+                setgrundStückV(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="300">300m²</option>
+              <option value="600">600m²</option>
+              <option value="900">900m²</option>
+              <option value="1200">1200m²</option>
+              <option value="1500">1500m²</option>
+              <option value="2000">2000m²</option>
+            </select>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="nutzFlB">Nutzfläche von</label>
+            <select
+              id="nutzVon"
+              onChange={(e) => {
+                setnutzVon(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="50">50m²</option>
+              <option value="100">100m²</option>
+              <option value="150">150m²</option>
+              <option value="200">200m²</option>
+              <option value="250">250m²</option>
+              <option value="300">300m²</option>
+              <option value="350">350m²</option>
+            </select>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="baujahrVon">Baujahr von</label>
+            <select
+              id="baujahrVon"
+              onChange={(e) => {
+                setbaujahrVon(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="1840">1940</option>
+              <option value="1960">1960</option>
+              <option value="1980">1980</option>
+              <option value="2000">2000</option>
+              <option value="2020">2020</option>
+            </select>
+          </form>
+        </div>
 
-              .map((val, key) => {
-                const cost = calculateCost(val);
-                return (
-                  <tr onClick={navigateToProperty(val)} key={key}>
-                    <td id="liegBezeichnung">{val.LiegBezeichnung}</td>
-                    <td id="liegTyp">{val.LiegTyp}</td>
-                    <td id="liegBaujahr">{val.LiegBaujahr}</td>
-                    <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
-                    <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
-                    <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
-                    <td id="liegZustand">{val.LiegZustand}</td>
-                    <td id="liegKosten">{cost}</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <div>
+          <form>
+            <label htmlFor="zustand">Zustand</label>
+            <select
+              id="zustand"
+              onChange={(e) => {
+                setzustand(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="normal">normal</option>
+              <option value="neuwertig">neuwertig</option>
+              <option value="sanierungsbedürftig">sanierungsbedürftig</option>
+              <option value="renoviert">renoviert</option>
+            </select>
+          </form>
+        </div>
+      </div>
+      <div className="searchbarBottom">
+        <div>
+          <form>
+            <label htmlFor="ausbauSt">Ausbaustandart</label>
+            <select
+              id="ausbauSt"
+              onChange={(e) => {
+                setausbauSt(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="einfach">einfach</option>
+              <option value="normal">normal</option>
+              <option value="luxuriös">luxuriös</option>
+              <option value="rustikal">rustikal</option>
+            </select>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="age">Kosten bis</label>
+            <input
+              type="number"
+              id="kostenBis"
+              min="0"
+              max="1000000"
+              step={10000}
+              onChange={(e) => {
+                setkostenBis(e.target.value);
+              }}
+            />
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="grundStückB">Grundstückfläche bis</label>
+            <select
+              id="grundStückB"
+              onChange={(e) => {
+                setgrundStückB(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="300">300m²</option>
+              <option value="600">600m²</option>
+              <option value="900">900m²</option>
+              <option value="1200">1200m²</option>
+              <option value="1500">1500m²</option>
+              <option value="2000">2000m²</option>
+            </select>
+          </form>
+        </div>
+        <div>
+          <form>
+            <label htmlFor="nutzBis">Nutzfläche bis</label>
+            <select
+              id="nutzBis"
+              onChange={(e) => {
+                setnutzBis(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="50">50m²</option>
+              <option value="100">100m²</option>
+              <option value="150">150m²</option>
+              <option value="200">200m²</option>
+              <option value="250">250m²</option>
+              <option value="300">300m²</option>
+              <option value="350">350m²</option>
+            </select>
+          </form>
+        </div>
+
+        <div>
+          <form>
+            <label htmlFor="">Baujahr bis</label>
+            <select
+              id="baujahrBis"
+              onChange={(e) => {
+                setbaujahrBis(e.target.value);
+              }}
+            >
+              <option value="alle">alle</option>
+              <option value="1940">1940</option>
+              <option value="1960">1960</option>
+              <option value="1980">1980</option>
+              <option value="2000">2000</option>
+              <option value="2020">2020</option>
+            </select>
+          </form>
+        </div>
+        <div></div>
+      </div>
+
+      <div>
+        <div className="pageLinks">
+          {localStorage.getItem("property") !== null ? (
+            <button
+              type="lastProperty"
+              onClick={() => window.location.replace("../clickedProperty")}
+            >
+              Letzte Liegenschaft
+            </button>
+          ) : null}
+          <button
+            type="addProperty"
+            onClick={() => window.location.replace("../addProperty")}
+          >
+            Liegenschaft hinzufügen
+          </button>
+        </div>
+
+        <div className="listProperties">
+          <table>
+            <thead>
+              <tr>
+                <th>Bezeichnung</th>
+                <th>Liegenschaftstyp</th>
+                <th>Nutzfläche</th>
+                <th>Grundstückfläche</th>
+                <th>Ausbaustandard</th>
+                <th>Baujahr</th>
+                <th>Zustand</th>
+                <th>Kosten</th>
+              </tr>
+            </thead>
+            <tbody>
+              {property
+                .filter((property) => {
+                  // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
+                  // ..
+                  // Überprüfen, ob mindestens ein Filterwert nicht 'beliebig' ist
+                  if (
+                    baujahrBis !== "alle" ||
+                    baujahrVon !== "alle" ||
+                    grundStückB !== "alle" ||
+                    ausbauSt !== "alle" ||
+                    zustand !== "alle" ||
+                    nutzVon !== "alle" ||
+                    kostenBis !== "alle" ||
+                    nutzBis !== "alle" ||
+                    grundStückV !== "alle" ||
+                    kostenVon !== "alle" ||
+                    liegTyp !== "alle" ||
+                    suchbegriff !== ""
+                  ) {
+                    // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
+                    return (
+                      (suchbegriff === "" ||
+                        property.LiegBezeichnung.toLowerCase().includes(
+                          suchbegriff.toLowerCase()
+                        )) &&
+                      (baujahrBis === "alle" ||
+                        property.LiegBaujahr <= baujahrBis) &&
+                      (baujahrVon === "alle" ||
+                        property.LiegBaujahr >= baujahrVon) &&
+                      (grundStückB === "alle" ||
+                        property.LiegGrundstückfläche <= grundStückB) &&
+                      (ausbauSt === "alle" ||
+                        property.LiegAusbaustandart === ausbauSt) &&
+                      (zustand === "alle" ||
+                        property.LiegZustand === zustand) &&
+                      (liegTyp === "alle" || property.LiegTyp === liegTyp) &&
+                      (grundStückV === "alle" ||
+                        property.LiegGrundstückfläche >= grundStückV) &&
+                      (nutzVon === "alle" ||
+                        property.LiegNutzfläche >= nutzVon) &&
+                      (nutzBis === "alle" || property.LiegNutzfläche <= nutzBis)
+                    );
+                  } else {
+                    // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
+                    return true;
+                  }
+                })
+                .map((val, key) => {
+                  const cost = calculateCost(val);
+                  return (
+                    <tr onClick={navigateToProperty(val)} key={key}>
+                      <td id="liegBezeichnung">{val.LiegBezeichnung}</td>
+                      <td id="liegTyp">{val.LiegTyp}</td>
+                      <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
+                      <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
+                      <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
+                      <td id="liegBaujahr">{val.LiegBaujahr}</td>
+                      <td id="liegZustand">{val.LiegZustand}</td>
+                      <td id="liegKosten">{cost}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -22,90 +22,90 @@ const AddProperty = () => {
       zusatz: zusatz,
       Baujahr: Baujahr,
       Bezeichnung: Bezeichnung,
-    }).then((response) => {
-      console.log(response);
+    }).then(() => {
+      window.location.replace("../home")
     });
   };
 
   return (
     <div className="app">
       <div className="container">
-        <div className="inputfields">
-          <div className="leftInputs">
-            <div className="left">
-              <div>
-                <form>
-                  <label htmlFor="dropdown">Liegenschaftstyp</label>
-                  <select
-                    placeholder=""
-                    id="dropdown"
-                    defaultValue="default"
-                    onChange={(e) => {
-                      setLiegenschaftstyp(e.target.value);
-                    }}
-                  >
-                    <option value="default" disabled hidden>
-                      Selektiere deine Option
-                    </option>
-                    <option>Einfamilienhaus</option>
-                    <option>Mehrfamilienhaus</option>
-                    <option>Hof</option>
-                    <option>Loft</option>
-                    <option>Reiheneinfamilienhaus</option>
-                    <option>Eckhaus</option>
-                    <option>Gebwerbeliegenschaft</option>
-                    <option>Eigentumswohnung</option>
-                  </select>
-                </form>
-              </div>
-              <div>
-                <form>
-                  <label htmlFor="grundStFl">Grundstückfläche</label>
-                  <input
-                    type="number"
-                    placeholder="Eingabe"
-                    id="grundStFl"
-                    onChange={(event) => {
-                      setGrundstückfläche(event.target.value);
-                    }}
-                  ></input>
-                </form>
-              </div>
-              <div>
-                <form>
-                  <label htmlFor="nutzFlB">Nutzfläche </label>
-                  <input
-                    type="number"
-                    placeholder="Eingabe"
-                    id="nutzFlB"
-                    onChange={(event) => {
-                      setNutzfläche(event.target.value);
-                    }}
-                  ></input>
-                </form>
-              </div>
-              <div>
-                <form>
-                  <label htmlFor="ausbauSt">Ausbaustand</label>
-                  <select
-                    placeholder=""
-                    id="ausbauSt"
-                    defaultValue="default"
-                    onChange={(event) => {
-                      setausbauSt(event.target.value);
-                    }}
-                  >
-                    <option value="default" disabled hidden>
-                      Selektiere deine Option
-                    </option>
-                    <option>rustikal</option>
-                    <option>normal</option>
-                    <option>einfach</option>
-                    <option>luxuriös</option>
-                  </select>
-                </form>
-              </div>
+        <div className="inputFieldsAdd">
+          <div className="left">
+            <div>
+              <form>
+                <label htmlFor="dropdown">Liegenschaftstyp</label>
+                <select
+                  placeholder=""
+                  id="dropdown"
+                  defaultValue="default"
+                  onChange={(e) => {
+                    setLiegenschaftstyp(e.target.value);
+                  }}
+                >
+                  <option value="default" disabled hidden>
+                    Selektiere deine Option
+                  </option>
+                  <option>Einfamilienhaus</option>
+                  <option>Mehrfamilienhaus</option>
+                  <option>Hof</option>
+                  <option>Loft</option>
+                  <option>Reiheneinfamilienhaus</option>
+                  <option>Eckhaus</option>
+                  <option>Gebwerbeliegenschaft</option>
+                  <option>Eigentumswohnung</option>
+                </select>
+              </form>
             </div>
+            <div>
+              <form>
+                <label htmlFor="grundStFl">Grundstückfläche</label>
+                <input
+                  type="number"
+                  placeholder="Eingabe"
+                  id="grundStFl"
+                  onChange={(event) => {
+                    setGrundstückfläche(event.target.value);
+                  }}
+                ></input>
+              </form>
+            </div>
+            <div>
+              <form>
+                <label htmlFor="nutzFlB">Nutzfläche </label>
+                <input
+                  type="number"
+                  placeholder="Eingabe"
+                  id="nutzFlB"
+                  onChange={(event) => {
+                    setNutzfläche(event.target.value);
+                  }}
+                ></input>
+              </form>
+            </div>
+            <div>
+              <form>
+                <label htmlFor="ausbauSt">Ausbaustand</label>
+                <select
+                  placeholder=""
+                  id="ausbauSt"
+                  defaultValue="default"
+                  onChange={(event) => {
+                    setausbauSt(event.target.value);
+                  }}
+                >
+                  <option value="default" disabled hidden>
+                    Selektiere deine Option
+                  </option>
+                  <option>rustikal</option>
+                  <option>normal</option>
+                  <option>einfach</option>
+                  <option>luxuriös</option>
+                </select>
+              </form>
+            </div>
+          </div>
+          <div className="right">
             <div>
               <form>
                 <label htmlFor="Zustand">Zustand</label>
@@ -173,26 +173,18 @@ const AddProperty = () => {
                 ></input>
               </form>
             </div>
-
-
-            <button onClick={insertProperties}>Hinzufügen</button>
-            <div>
-              <form>
-                <label htmlFor="liegnr">LiegenschaftNr</label>
-                <input
-                  type="text"
-                  id="liegnr"
-                  placeholder="Eingabe"
-                  onChange={(e) => {
-                    setliegNr(e.target.value);
-                  }}
-                ></input>
-              </form>
-            </div>
-            <button class="buttonAdd" onClick={() => window.location.replace("../home")}>Abbrechen</button>
-            <button class="buttonAdd" onClick={insertProperties}>Hinzufügen</button>
-
           </div>
+        </div>
+        <div>
+          <button
+            className="buttonAdd"
+            onClick={() => window.location.replace("../home")}
+          >
+            Abbrechen
+          </button>
+          <button className="buttonAdd" onClick={insertProperties}>
+            Hinzufügen
+          </button>
         </div>
       </div>
     </div>

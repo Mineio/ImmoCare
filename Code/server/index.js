@@ -56,14 +56,13 @@ app.post("/insert", (req, res) => {
   const nutzfläche = req.body.Nutzfläche;
   const ausbaustand = req.body.ausbauSt;
   const zustand = req.body.zustand;
-  const nr = req.body.liegNr;
   const bezeichnung = req.body.Bezeichnung;
   const baujahr = req.body.Baujahr;
   const zusatz = req.body.zusatz;
   const typ = req.body.Liegenschaftstyp;
 
   db.query(
-    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?)",
     [
       typ,
       bezeichnung,
