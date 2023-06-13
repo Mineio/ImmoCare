@@ -60,10 +60,12 @@
 .searchbarTop{
   margin-top: 30px;
   display:flex;
+
+  align-items: center;
 }
 
 .searchbarTop div{
-  padding-right: 50px;
+  padding-right: 35px;
 }
 
 .searchbarTop div form{
@@ -73,13 +75,20 @@
 }
 
 .searchbarBottom{
-  margin-top: 20px;
+  margin-top: 45px;
   display:flex;
+ 
+  align-items: center;
 }
-
 .searchbarBottom div{
-  padding-right: 50px;
+  margin-right: 35px;
 }
+.searchbarBottom input, .searchbarBottom select{
+ width: 150px;
+}
+.searchbarTop input, .searchbarTop select{
+  width: 150px;
+ }
 
 .searchbarBottom div form{
   display:flex;
@@ -266,7 +275,7 @@ input[id="LiegBaujahr"]::-webkit-inner-spin-button {
 }
 
 input[id="LiegNutzfläche"]::-webkit-inner-spin-button {
-  opacity: 0
+  opacity: 0;
 }
 
 .searchbox input[type="text"] {

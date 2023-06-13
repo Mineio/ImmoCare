@@ -123,13 +123,13 @@ const Home = () => {
       "nutzVon",
       "kostenBis",
       "nutzBis",
-      "suchbegriff"
+      "suchbegriff",
     ];
-    
-    keysToRemove.forEach(key => {
+
+    keysToRemove.forEach((key) => {
       localStorage.removeItem(key);
     });
-    
+
     setausbauSt("alle");
     setbaujahrBis("alle");
     setbaujahrVon("alle");
@@ -469,7 +469,6 @@ const Home = () => {
             </select>
           </form>
         </div>
-        <div></div>
       </div>
 
       <div>
