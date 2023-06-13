@@ -27,14 +27,14 @@ app.get("/getProperties", (req, res) => {
 app.put("/updateProperty", (req, res) => {
   const updateProperty = req.body.propertyToUpdate;
   db.query(
-    "UPDATE TLiegenschaften SET LiegTyp = ?, LiegBezeichnung = ?, LiegBaujahr = ?, LiegGrundstückfläche = ?, LiegNutzfläche = ?, LiegAusbaustandart = ?, LiegZustand = ?, LiegZusatz = ? where LiegNR = ?",
+    "UPDATE TLiegenschaften SET LiegTyp = ?, LiegBezeichnung = ?, LiegBaujahr = ?, LiegGrundstückfläche = ?, LiegNutzfläche = ?, LiegAusbaustandard = ?, LiegZustand = ?, LiegZusatz = ? where LiegNR = ?",
     [
       updateProperty.LiegTyp,
       updateProperty.LiegBezeichnung,
       updateProperty.LiegBaujahr,
       updateProperty.LiegGrundstückfläche,
       updateProperty.LiegNutzfläche,
-      updateProperty.LiegAusbaustandart,
+      updateProperty.LiegAusbaustandard,
       updateProperty.LiegZustand,
       updateProperty.LiegZusatz,
       updateProperty.LiegNR,
@@ -62,7 +62,7 @@ app.post("/insert", (req, res) => {
   const typ = req.body.Liegenschaftstyp;
 
   db.query(
-    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?)",
+    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandard, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?)",
     [
       typ,
       bezeichnung,
