@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 const ClickedProperty = () => {
-  let clicked = true;
-
+  
   const [property, setProperty] = useState({});
 
   useEffect(() => {
@@ -17,8 +16,8 @@ const ClickedProperty = () => {
     document.getElementById("LiegTyp").value = property.LiegTyp;
     document.getElementById("LiegNutzfläche").value = property.LiegNutzfläche;
     document.getElementById("LiegBezeichnung").value = property.LiegBezeichnung;
-    document.getElementById("LiegAusbaustandart").value =
-      property.LiegAusbaustandart;
+    document.getElementById("LiegAusbaustandard").value =
+      property.LiegAusbaustandard;
     document.getElementById("LiegZustand").value = property.LiegZustand;
     document.getElementById("LiegGrundstückfläche").value =
       property.LiegGrundstückfläche;
@@ -33,8 +32,8 @@ const ClickedProperty = () => {
     property.LiegTyp = document.getElementById('LiegTyp').value;
     property.LiegNutzfläche = document.getElementById("LiegNutzfläche").value;
     property.LiegBezeichnung = document.getElementById("LiegBezeichnung").value;
-    property.LiegAusbaustandart =
-      document.getElementById("LiegAusbaustandart").value;
+    property.LiegAusbaustandard =
+      document.getElementById("LiegAusbaustandard").value;
     property.LiegZustand = document.getElementById("LiegZustand").value;
     property.LiegGrundstückfläche = document.getElementById(
       "LiegGrundstückfläche"
@@ -88,8 +87,8 @@ const ClickedProperty = () => {
         </div>
         <div className="doubleInputs">
           <div>
-            <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
-             <select id="LiegAusbaustandart">
+            <label htmlFor="LiegAusbaustandard">Ausbaustandard</label>
+             <select id="LiegAusbaustandard">
               <option value="einfach">einfach</option>
               <option value="normal">normal</option>
               <option value="rustikal">rustikal</option>
@@ -108,11 +107,11 @@ const ClickedProperty = () => {
         </div>
         <div className="doubleInputs">
           <div>
-            <label htmlFor="LiegGrundstückfläche">Grundstückfläche</label>
+            <label htmlFor="LiegGrundstückfläche">Grundstückfläche in m²</label>
             <input type="number" id="LiegGrundstückfläche" />
           </div>
           <div className="rightSide">
-            <label htmlFor="LiegNutzfläche">Nutzfläche</label>
+            <label htmlFor="LiegNutzfläche">Nutzfläche in m²</label>
             <input type="number" id="LiegNutzfläche" />
           </div>
         </div>
