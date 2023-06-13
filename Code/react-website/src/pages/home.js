@@ -166,11 +166,11 @@ const Home = () => {
       LiegTyp,
       LiegGrundstückfläche,
       LiegNutzfläche,
-      LiegAusbaustandart,
+      LiegAusbaustandard,
       LiegZusatz,
       LiegZustand,
     } = property;
-    if (LiegAusbaustandart === "normal" || LiegZustand === "normal") {
+    if (LiegAusbaustandard === "normal" || LiegZustand === "normal") {
       let cost = 0;
       let anzWhg = 0;
       let anzZimm = 0;
@@ -220,9 +220,9 @@ const Home = () => {
       //Zahl für die Berechnung von den Prozentrechnungen
       let costRatio = 0;
 
-      if (LiegAusbaustandart === "einfach") {
+      if (LiegAusbaustandard === "einfach") {
         costRatio -= cost * 0.2;
-      } else if (LiegAusbaustandart === "luxuriös") {
+      } else if (LiegAusbaustandard === "luxuriös") {
         costRatio += cost * 0.2;
       }
       if (LiegZustand === "sanierungsbedürftig") {
@@ -381,7 +381,7 @@ const Home = () => {
       <div className="searchbarBottom">
         <div>
           <form>
-            <label htmlFor="ausbauSt">Ausbaustandart</label>
+            <label htmlFor="ausbauSt">Ausbaustandard</label>
             <select
               id="ausbauSt"
               onChange={(e) => {
@@ -536,7 +536,7 @@ const Home = () => {
                       (grundStückB === "alle" ||
                         property.LiegGrundstückfläche <= grundStückB) &&
                       (ausbauSt === "alle" ||
-                        property.LiegAusbaustandart === ausbauSt) &&
+                        property.LiegAusbaustandard === ausbauSt) &&
                       (zustand === "alle" ||
                         property.LiegZustand === zustand) &&
                       (liegTyp === "alle" || property.LiegTyp === liegTyp) &&
@@ -559,7 +559,7 @@ const Home = () => {
                       <td id="liegTyp">{val.LiegTyp}</td>
                       <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
                       <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
-                      <td id="liegAusbauS">{val.LiegAusbaustandart}</td>
+                      <td id="liegAusbauS">{val.LiegAusbaustandard}</td>
                       <td id="liegBaujahr">{val.LiegBaujahr}</td>
                       <td id="liegZustand">{val.LiegZustand}</td>
                       <td id="liegKosten">{cost}</td>
