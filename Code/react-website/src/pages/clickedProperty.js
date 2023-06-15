@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import Popup from "./popUp";
 
 const ClickedProperty = () => {
+  const [buttonPopup, setbuttonPopup] = useState(false);
   let clicked = true;
-
   const [property, setProperty] = useState({});
 
   useEffect(() => {
@@ -137,7 +138,16 @@ const ClickedProperty = () => {
           </div>
         </div>
         <div className="DeleteButton">
-          <input type="button" value="Liegenschaft löschen" />
+          <input
+            type="button"
+            value="Liegenschaft löschen"
+            onClick={() => setbuttonPopup(true)}
+          />
+          <Popup trigger={buttonPopup} LiegNR={property.LiegNR}>
+            {console.log("POPUP", property.LiegNR)}
+            <h3>MY PopUp</h3>
+            <p>Wollen Sie diese Liegenschaft wirklich löschen?</p>
+          </Popup>
         </div>
       </form>
     </div>
