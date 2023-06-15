@@ -11,7 +11,7 @@ const ClickedProperty = () => {
     setStartProperty();
   }, []);
 
-  const setStartProperty = async() => {
+  const setStartProperty = async () => {
     const property = await JSON.parse(localStorage.getItem("property"));
     setProperty(property);
     document.getElementById("LiegTyp").value = property.LiegTyp;
@@ -29,8 +29,8 @@ const ClickedProperty = () => {
   const saveProperty = (event) => {
     event.preventDefault();
 
-    console.log(document.getElementById('LiegTyp').value)
-    property.LiegTyp = document.getElementById('LiegTyp').value;
+    console.log(document.getElementById("LiegTyp").value);
+    property.LiegTyp = document.getElementById("LiegTyp").value;
     property.LiegNutzfläche = document.getElementById("LiegNutzfläche").value;
     property.LiegBezeichnung = document.getElementById("LiegBezeichnung").value;
     property.LiegAusbaustandart =
@@ -46,6 +46,7 @@ const ClickedProperty = () => {
     updateData();
     window.location.replace("../home");
   };
+  function getBestätigung() {}
 
   const updateData = async () => {
     await Axios.put("http://localhost:3001/updateProperty", {
@@ -71,7 +72,9 @@ const ClickedProperty = () => {
               <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
               <option value="Loft">Loft</option>
               <option value="Hof">Hof</option>
-              <option value="Reiheneinfamilienhaus">Reiheneinfamilienhaus</option>
+              <option value="Reiheneinfamilienhaus">
+                Reiheneinfamilienhaus
+              </option>
               <option value="Gewerbeliegenschaft">Gewerbeliegenschaft</option>
               <option value="Eckhaus">Eckhaus</option>
             </select>
@@ -89,7 +92,7 @@ const ClickedProperty = () => {
         <div className="doubleInputs">
           <div>
             <label htmlFor="LiegAusbaustandart">Ausbaustandart</label>
-             <select id="LiegAusbaustandart">
+            <select id="LiegAusbaustandart">
               <option value="einfach">einfach</option>
               <option value="normal">normal</option>
               <option value="rustikal">rustikal</option>
@@ -120,6 +123,7 @@ const ClickedProperty = () => {
           <label htmlFor="LiegZusatz">Zusatz</label>
           <input type="text" id="LiegZusatz" />
         </div>
+
         <div className="doubleInputs">
           <div>
             <input
@@ -131,6 +135,9 @@ const ClickedProperty = () => {
           <div className="rightSide">
             <input type="button" value="Speichern" onClick={saveProperty} />
           </div>
+        </div>
+        <div className="DeleteButton">
+          <input type="button" value="Liegenschaft löschen" />
         </div>
       </form>
     </div>
