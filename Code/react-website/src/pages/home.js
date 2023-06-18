@@ -170,73 +170,94 @@ const Home = () => {
       LiegZusatz,
       LiegZustand,
     } = property;
-    if (LiegAusbaustandard === "normal" || LiegZustand === "normal") {
-      let cost = 0;
-      let anzWhg = 0;
-      let anzZimm = 0;
-      let flächeGrößterRaum = 0;
+    let cost = 0;
+    let anzWhg = 0;
+    let anzZimm = 0;
+    let flächeGrößterRaum = 0;
 
-      // Extrahiere Anzahl der Wohnungen aus dem Zusatz
-      if (LiegZusatz && LiegZusatz.includes("Anz. Whg.:")) {
-        const match = LiegZusatz.match(/Anz\. Whg\.: ([0-9]+)/);
-        if (match) {
-          anzWhg = parseInt(match[1], 10);
-        }
+    // Extrahiere Anzahl der Wohnungen aus dem Zusatz
+    if (LiegZusatz && LiegZusatz.includes("Anz. Whg.:")) {
+      const match = LiegZusatz.match(/Anz\. Whg\.: ([0-9]+)/);
+      if (match) {
+        anzWhg = parseInt(match[1], 10);
       }
-
-      // Extrahiere Anzahl der Zimmer aus dem Zusatz
-      if (LiegZusatz && LiegZusatz.includes("Anz. Zimm.:")) {
-        const match = LiegZusatz.match(/Anz\. Zimm\.: ([0-9.]+)/);
-        if (match) {
-          anzZimm = parseFloat(match[1]);
-        }
-      }
-
-      // Extrahiere Fläche des größten Raums aus dem Zusatz
-      if (
-        LiegTyp === "Gewerbeliegenschaft" &&
-        LiegZusatz &&
-        LiegZusatz.includes("Nutzfläche:")
-      ) {
-        const match = LiegZusatz.match(/Nutzfläche: ([0-9]+)m2/);
-        if (match) {
-          flächeGrößterRaum = parseInt(match[1], 10);
-        }
-      }
-      if (LiegTyp === "Einfamilienhaus") {
-        cost += 500 * LiegGrundstückfläche;
-        cost += 1000 * LiegNutzfläche;
-        cost += 30000 * anzZimm;
-      } else if (LiegTyp === "Mehrfamilienhaus") {
-        cost += 500 * LiegGrundstückfläche;
-        cost += 1000 * LiegNutzfläche;
-        cost += 100000 * anzWhg;
-      } else if (LiegTyp === "Gewerbeliegenschaft") {
-        cost += 200 * LiegGrundstückfläche;
-        cost += 800 * LiegNutzfläche;
-        cost += 1000 * flächeGrößterRaum;
-      }
-
-      //Zahl für die Berechnung von den Prozentrechnungen
-      let costRatio = 0;
-
-      if (LiegAusbaustandard === "einfach") {
-        costRatio -= cost * 0.2;
-      } else if (LiegAusbaustandard === "luxuriös") {
-        costRatio += cost * 0.2;
-      }
-      if (LiegZustand === "sanierungsbedürftig") {
-        costRatio -= cost * 0.25;
-      } else if (LiegZustand === "neuwertig") {
-        costRatio += cost * 0.25;
-      }
-
-      if (costRatio !== 0) {
-        cost += costRatio;
-      }
-
-      return numberWithCommas(cost);
     }
+
+    // Extrahiere Anzahl der Zimmer aus dem Zusatz
+    if (LiegZusatz && LiegZusatz.includes("Anz. Zimm.:")) {
+      const match = LiegZusatz.match(/Anz\. Zimm\.: ([0-9.]+)/);
+      if (match) {
+        anzZimm = parseFloat(match[1]);
+      }
+    }
+
+    // Extrahiere Fläche des größten Raums aus dem Zusatz
+    if (
+      LiegTyp === "Gewerbeliegenschaft" &&
+      LiegZusatz &&
+      LiegZusatz.includes("Nutzfläche:")
+    ) {
+      const match = LiegZusatz.match(/Nutzfläche: ([0-9]+)m2/);
+      if (match) {
+        flächeGrößterRaum = parseInt(match[1], 10);
+      }
+    }
+
+    // Kosten der Liegenschaftstyps ausrechnen
+    if (LiegTyp === "Einfamilienhaus") {
+      cost += 500 * LiegGrundstückfläche;
+      cost += 1000 * LiegNutzfläche;
+      cost += 30000 * anzZimm;
+    } else if (LiegTyp === "Mehrfamilienhaus") {
+      cost += 500 * LiegGrundstückfläche;
+      cost += 1000 * LiegNutzfläche;
+      cost += 100000 * anzWhg;
+    } else if (LiegTyp === "Gewerbeliegenschaft") {
+      cost += 200 * LiegGrundstückfläche;
+      cost += 800 * LiegNutzfläche;
+      cost += 1000 * flächeGrößterRaum;
+    } else if (LiegTyp === "Eckhaus") {
+      cost += 500 * LiegGrundstückfläche;
+      cost += 900 * LiegNutzfläche;
+      cost += 26000 * anzZimm;
+    }else if (LiegTyp === "Reiheneinfamilienhaus") {
+      cost += 480 * LiegGrundstückfläche;
+      cost += 900 * LiegNutzfläche;
+      cost += 26000 * flächeGrößterRaum;
+    }else if (LiegTyp === "Eigentumswohnung") {
+      cost += 150 * LiegGrundstückfläche;
+      cost += 900 * LiegNutzfläche;
+      cost += 28000 * anzZimm;
+    }else if (LiegTyp === "Hof") {
+      cost += 40 * LiegGrundstückfläche;
+      cost += 900 * LiegNutzfläche;
+      cost += 27000 * anzZimm;
+    }else if (LiegTyp === "Loft") {
+      cost += 150 * LiegGrundstückfläche;
+      cost += 2300 * LiegNutzfläche;
+    }
+
+    //Zahl für die Berechnung von den Prozentrechnungen
+    let costRatio = 0;
+
+    if (LiegAusbaustandard === "einfach") {
+      costRatio -= cost * 0.2;
+    } else if (LiegAusbaustandard === "luxuriös") {
+      costRatio += cost * 0.2;
+    }
+    if (LiegZustand === "sanierungsbedürftig") {
+      costRatio -= cost * 0.25;
+    } else if (LiegZustand === "neuwertig") {
+      costRatio += cost * 0.25;
+    } else if(LiegZustand === "renoviert"){
+      costRatio += cost * 0.1;
+    }
+
+    if (costRatio !== 0) {
+      cost += costRatio;
+    }
+
+    return numberWithCommas(cost);
   };
 
   //Trennung für jede dritte Ziffer mit einem Hochkomma.
@@ -557,7 +578,7 @@ const Home = () => {
                     <tr onClick={navigateToProperty(val)} key={key}>
                       <td id="liegBezeichnung">{val.LiegBezeichnung}</td>
                       <td id="liegTyp">{val.LiegTyp}</td>
-                      <td id="lietNutzfläche">{val.LiegNutzfläche}</td>
+                      <td id="liegNutzfläche">{val.LiegNutzfläche}</td>
                       <td id="liegGrundSF">{val.LiegGrundstückfläche}</td>
                       <td id="liegAusbauS">{val.LiegAusbaustandard}</td>
                       <td id="liegBaujahr">{val.LiegBaujahr}</td>
