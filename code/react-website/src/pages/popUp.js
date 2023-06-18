@@ -4,18 +4,18 @@ import axios from "axios";
 function popUp(props) {
   function deleteProperty(LiegNR) {
     axios
-      .put("http://localhost:3001/deleteProperty", {
-        deleteProperty: LiegNR,
+      .delete("http://localhost:3001/deleteProperty", {
+        LiegNR: LiegNR,
       })
       .then(() => {
-        console.log("success");
+        window.location.replace("../home");
       });
   }
 
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <button className="close-btn" onClick={console.log(props.LiegNR)}>
+        <button className="close-btn" onClick={deleteProperty(props.LiegNR)}>
           close
         </button>
 
