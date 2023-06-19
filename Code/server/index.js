@@ -24,9 +24,9 @@ app.get("/getProperties", (req, res) => {
   });
 });
 
-app.delete("deleteProperty", (req, res) => {
+app.delete("/deleteProperty", (req, res) => {
   const LiegNR = req.body.LiegNR;
-  console.log(deleteProperty);
+  console.log(LiegNR);
   db.query(
     "DELETE from TLiegenschaften Where LiegNR=?",
     [LiegNR],

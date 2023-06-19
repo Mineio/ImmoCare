@@ -1,22 +1,26 @@
 import React from "react";
-import axios from "axios";
+import Axios from "axios";
 
 function popUp(props) {
-  function deleteProperty(LiegNR) {
-    axios
-      .delete("http://localhost:3001/deleteProperty", {
-        LiegNR: LiegNR,
-      })
-      .then(() => {
-        window.location.replace("../home");
-      });
-  }
+  const deleteProperty = (LiegNR) => {
+    console.log(LiegNR);
 
+    Axios.delete("http://localhost:3001/deleteProperty", {
+      LiegNR: LiegNR,
+    })
+      .then(() => {
+        console.log("success");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <button className="close-btn" onClick={deleteProperty(props.LiegNR)}>
-          close
+        <button className="close-btn">Nein</button>
+        <button className="delete-btn" onClick={deleteProperty(props.LiegNR)}>
+          JA
         </button>
 
         {props.children}

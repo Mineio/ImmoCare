@@ -145,7 +145,7 @@ const ClickedProperty = () => {
           />
           <Popup trigger={buttonPopup} LiegNR={property.LiegNR}>
             {console.log("POPUP", property.LiegNR)}
-            <h3>MY PopUp</h3>
+            <h3>Wirklich löschen?</h3>
             <p>Wollen Sie diese Liegenschaft wirklich löschen?</p>
           </Popup>
         </div>
