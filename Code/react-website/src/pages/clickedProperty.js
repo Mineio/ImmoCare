@@ -30,7 +30,6 @@ const ClickedProperty = () => {
   const saveProperty = (event) => {
     event.preventDefault();
 
-    console.log(document.getElementById("LiegTyp").value);
     property.LiegTyp = document.getElementById("LiegTyp").value;
     property.LiegNutzfläche = document.getElementById("LiegNutzfläche").value;
     property.LiegBezeichnung = document.getElementById("LiegBezeichnung").value;
@@ -144,7 +143,6 @@ const ClickedProperty = () => {
             onClick={() => setbuttonPopup(true)}
           />
           <Popup trigger={buttonPopup} LiegNR={property.LiegNR}>
-            {console.log("POPUP", property.LiegNR)}
             <h3>Wirklich löschen?</h3>
             <p>Wollen Sie diese Liegenschaft wirklich löschen?</p>
           </Popup>

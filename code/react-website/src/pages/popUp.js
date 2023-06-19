@@ -3,10 +3,7 @@ import Axios from "axios";
 
 function popUp(props) {
   const deleteProperty = (LiegNR) => {
-    console.log(LiegNR);
-
-    Axios.delete("http://localhost:3001/deleteProperty", {
-      LiegNR: LiegNR,
+    Axios.delete(`http://localhost:3001/deleteProperty/${LiegNR}`, {
     })
       .then(() => {
         console.log("success");
@@ -19,7 +16,10 @@ function popUp(props) {
     <div className="popup">
       <div className="popup-inner">
         <button className="close-btn">Nein</button>
-        <button className="delete-btn" onClick={deleteProperty(props.LiegNR)}>
+        <button
+          className="delete-btn"
+          onClick={() => deleteProperty(props.LiegNR)}
+        >
           JA
         </button>
 
