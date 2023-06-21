@@ -13,6 +13,7 @@ const AddProperty = () => {
   const [Bezeichnung, setBezeichnung] = useState("");
 
   const insertProperties = () => {
+    console.log(Grundstückfläche);
     Axios.post("http://localhost:3001/insert", {
       Grundstückfläche: Grundstückfläche,
       Nutzfläche: Nutzfläche,
@@ -48,8 +49,8 @@ const AddProperty = () => {
               placeholder=""
               id="LiegTyp"
               defaultValue="default"
-              onChange={(e) => {
-                setLiegenschaftstyp(e.target.value);
+              onChange={(event) => {
+                setLiegenschaftstyp(event.target.value);
               }}
             >
               <option value="default" disabled hidden>
@@ -75,14 +76,7 @@ const AddProperty = () => {
                 setzustand(event.target.value);
               }}
             >
-              <option
-                value="default"
-                disabled
-                hidden
-                onChange={(event) => {
-                  setzustand(event.target.value);
-                }}
-              >
+              <option value="default" disabled hidden>
                 Selektiere deine Option
               </option>
               <option>neuwertig</option>
@@ -117,8 +111,8 @@ const AddProperty = () => {
               type="number"
               id="LiegBaujahr"
               placeholder="Eingabe"
-              onChange={(e) => {
-                setBaujahr(e.target.value);
+              onChange={(event) => {
+                setBaujahr(event.target.value);
               }}
             ></input>
           </div>
@@ -153,8 +147,8 @@ const AddProperty = () => {
             type="text"
             id="LiegZusatz"
             placeholder="Eingabe"
-            onChange={(e) => {
-              setzusatz(e.target.value);
+            onChange={(event) => {
+              setzusatz(event.target.value);
             }}
           ></input>
         </div>

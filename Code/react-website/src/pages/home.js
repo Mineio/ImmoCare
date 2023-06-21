@@ -220,19 +220,19 @@ const Home = () => {
       cost += 500 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 26000 * anzZimm;
-    }else if (LiegTyp === "Reiheneinfamilienhaus") {
+    } else if (LiegTyp === "Reiheneinfamilienhaus") {
       cost += 480 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 26000 * flächeGrößterRaum;
-    }else if (LiegTyp === "Eigentumswohnung") {
+    } else if (LiegTyp === "Eigentumswohnung") {
       cost += 150 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 28000 * anzZimm;
-    }else if (LiegTyp === "Hof") {
+    } else if (LiegTyp === "Hof") {
       cost += 40 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 27000 * anzZimm;
-    }else if (LiegTyp === "Loft") {
+    } else if (LiegTyp === "Loft") {
       cost += 150 * LiegGrundstückfläche;
       cost += 2300 * LiegNutzfläche;
     }
@@ -249,7 +249,7 @@ const Home = () => {
       costRatio -= cost * 0.25;
     } else if (LiegZustand === "neuwertig") {
       costRatio += cost * 0.25;
-    } else if(LiegZustand === "renoviert"){
+    } else if (LiegZustand === "renoviert") {
       costRatio += cost * 0.1;
     }
 

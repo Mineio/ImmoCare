@@ -24,17 +24,33 @@ app.get("/getProperties", (req, res) => {
   });
 });
 
+app.delete("/deleteProperty", (req, res) => {
+  const LiegNR = req.body.LiegNR;
+  console.log(LiegNR);
+  db.query(
+    "DELETE from TLiegenschaften Where LiegNR=?",
+    [LiegNR],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 app.put("/updateProperty", (req, res) => {
   const updateProperty = req.body.propertyToUpdate;
   db.query(
-    "UPDATE TLiegenschaften SET LiegTyp = ?, LiegBezeichnung = ?, LiegBaujahr = ?, LiegGrundstückfläche = ?, LiegNutzfläche = ?, LiegAusbaustandard = ?, LiegZustand = ?, LiegZusatz = ? where LiegNR = ?",
+    "UPDATE TLiegenschaften SET LiegTyp = ?, LiegBezeichnung = ?, LiegBaujahr = ?, LiegGrundstückfläche = ?, LiegNutzfläche = ?, LiegAusbaustandart = ?, LiegZustand = ?, LiegZusatz = ? where LiegNR = ?",
     [
       updateProperty.LiegTyp,
       updateProperty.LiegBezeichnung,
       updateProperty.LiegBaujahr,
       updateProperty.LiegGrundstückfläche,
       updateProperty.LiegNutzfläche,
-      updateProperty.LiegAusbaustandard,
+      updateProperty.LiegAusbaustandart,
       updateProperty.LiegZustand,
       updateProperty.LiegZusatz,
       updateProperty.LiegNR,
@@ -62,7 +78,7 @@ app.post("/insert", (req, res) => {
   const typ = req.body.Liegenschaftstyp;
 
   db.query(
-    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandard, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?)",
+    "INSERT INTO TLiegenschaften( LiegTyp, LiegBezeichnung, LiegBaujahr, LiegGrundstückfläche, LiegNutzfläche, LiegAusbaustandart, LiegZustand, LiegZusatz) VALUES (?,?,?,?,?,?,?,?)",
     [
       typ,
       bezeichnung,
@@ -75,9 +91,9 @@ app.post("/insert", (req, res) => {
     ],
     (err, result) => {
       if (err) {
-        alert("Daten konnten nicht eingefügt werden");
+        console.log(err);
       } else {
-        res.send({ message: "Liegenschaft erfolgreich eingefügt" });
+        res.send(result);
       }
     }
   );
