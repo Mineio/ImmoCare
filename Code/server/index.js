@@ -24,6 +24,21 @@ app.get("/getProperties", (req, res) => {
   });
 });
 
+app.delete("/deleteProperty/:LiegNR", (req, res) => {
+  const LiegNR = req.params.LiegNR;
+  db.query(
+    "DELETE from TLiegenschaften Where LiegNR=?",
+    [LiegNR],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 app.put("/updateProperty", (req, res) => {
   const updateProperty = req.body.propertyToUpdate;
   db.query(
