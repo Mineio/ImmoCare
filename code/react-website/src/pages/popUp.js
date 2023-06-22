@@ -3,10 +3,10 @@ import Axios from "axios";
 
 function popUp(props) {
   const deleteProperty = (LiegNR) => {
-    Axios.delete(`http://localhost:3001/deleteProperty/${LiegNR}`, {
-    })
+    Axios.delete(`http://localhost:3001/deleteProperty/${LiegNR}`, {})
       .then(() => {
         console.log("success");
+        window.location.replace("../home");
       })
       .catch((error) => {
         console.error(error);

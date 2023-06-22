@@ -140,8 +140,10 @@ const ClickedProperty = () => {
           <input
             type="button"
             value="Liegenschaft löschen"
+            className="delete"
             onClick={() => setbuttonPopup(true)}
           />
+
           <Popup trigger={buttonPopup} LiegNR={property.LiegNR}>
             <h3>Wirklich löschen?</h3>
             <p>Wollen Sie diese Liegenschaft wirklich löschen?</p>

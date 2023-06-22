@@ -234,8 +234,9 @@ button{
   cursor: pointer;
 }
 
-.clickedProperty input[type="button"]:hover {
+.clickedProperty input[type="button"]:not(.delete):hover {
   background-color: #98a69e;
+  
 }
 
 .clicked {
@@ -367,10 +368,24 @@ input[id="LiegGrundstückfläche"]::-webkit-inner-spin-button {
 position: absolute;
 top: 75px;
 right: 16px;
+height: 40px;
+width: 70px;
 }
 
 .popup-inner .delete-btn{
   position: absolute;
   top: 15px;
   right: 16px;
+  height: 40px;
+  width: 70px;
+  
   }
+
+.DeleteButton input{
+  background-image:url("./Ausrufezeichen.png") ;
+  background-size: 25px;
+  background-color: rgb(205, 99, 99);
+  background-repeat:no-repeat ;
+  background-position: 120px 46%;
+
+}
