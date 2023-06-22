@@ -27,14 +27,14 @@ const Home = () => {
   const [liegTyp, setliegTyp] = useState(
     getLocalStorageValue("liegTyp", "alle")
   );
-  const [kostenVon, setkostenVon] = useState(getLocalStorageValue("kostenVon"));
+  const [kostenVon, setkostenVon] = useState(getLocalStorageValue("kostenVon", ""));
   const [grundStückV, setgrundStückV] = useState(
     getLocalStorageValue("grundStückV", "alle")
   );
   const [nutzVon, setnutzVon] = useState(
     getLocalStorageValue("nutzVon", "alle")
   );
-  const [kostenBis, setkostenBis] = useState(getLocalStorageValue("kostenBis"));
+  const [kostenBis, setkostenBis] = useState(getLocalStorageValue("kostenBis", ""));
   const [nutzBis, setnutzBis] = useState(
     getLocalStorageValue("nutzBis", "alle")
   );
@@ -106,6 +106,10 @@ const Home = () => {
 
   const selectProperties = async () => {
     await Axios.get("http://localhost:3001/getProperties").then((response) => {
+      for (let i = 0; i < response.data.length; i++) {
+        const cost = calculateCost(response.data[i]);
+        response.data[i]["LiegKosten"] = parseInt(cost.replace(/'/g, ""));
+      }
       setProperty(response.data);
     });
   };
@@ -316,7 +320,7 @@ const Home = () => {
               id="kostenVon"
               min="0"
               max="1000000"
-              step={10000}
+              step={20000}
               onChange={(e) => {
                 setkostenVon(e.target.value);
               }}
@@ -333,12 +337,12 @@ const Home = () => {
               }}
             >
               <option value="alle">alle</option>
-              <option value="300">300m²</option>
               <option value="600">600m²</option>
               <option value="900">900m²</option>
               <option value="1200">1200m²</option>
               <option value="1500">1500m²</option>
               <option value="2000">2000m²</option>
+              <option value="3000">3000m²</option>
             </select>
           </form>
         </div>
@@ -425,7 +429,7 @@ const Home = () => {
               id="kostenBis"
               min="0"
               max="1000000"
-              step={10000}
+              step={20000}
               onChange={(e) => {
                 setkostenBis(e.target.value);
               }}
@@ -442,12 +446,12 @@ const Home = () => {
               }}
             >
               <option value="alle">alle</option>
-              <option value="300">300m²</option>
               <option value="600">600m²</option>
               <option value="900">900m²</option>
               <option value="1200">1200m²</option>
               <option value="1500">1500m²</option>
               <option value="2000">2000m²</option>
+              <option value="3000">3000m²</option>
             </select>
           </form>
         </div>
@@ -537,13 +541,16 @@ const Home = () => {
                     ausbauSt !== "alle" ||
                     zustand !== "alle" ||
                     nutzVon !== "alle" ||
-                    kostenBis !== "alle" ||
                     nutzBis !== "alle" ||
                     grundStückV !== "alle" ||
-                    kostenVon !== "alle" ||
                     liegTyp !== "alle" ||
-                    suchbegriff !== ""
+                    suchbegriff !== "" ||
+                    kostenVon !== "" ||
+                    kostenBis !== ""
                   ) {
+                    console.log(property.LiegKosten)
+                    console.log(kostenVon)
+                    console.log(kostenBis)
                     // Überprüfen, ob die Bedingungen für alle Filterwerte erfüllt sind
                     return (
                       (suchbegriff === "" ||
@@ -563,17 +570,18 @@ const Home = () => {
                       (liegTyp === "alle" || property.LiegTyp === liegTyp) &&
                       (grundStückV === "alle" ||
                         property.LiegGrundstückfläche >= grundStückV) &&
-                      (nutzVon === "alle" ||
-                        property.LiegNutzfläche >= nutzVon) &&
-                      (nutzBis === "alle" || property.LiegNutzfläche <= nutzBis)
-                    );
-                  } else {
-                    // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
-                    return true;
-                  }
+                      (nutzVon === "alle" || property.LiegNutzfläche >= nutzVon) &&
+                      (nutzBis === "alle" || property.LiegNutzfläche <= nutzBis) &&
+                      (kostenVon === "" || property.LiegKosten >= kostenVon) &&
+                      (kostenBis === "" || property.LiegKosten <= kostenBis)
+                      );
+                    } else {
+                      // Wenn alle Filterwerte auf 'beliebig' gesetzt sind, wird das Element ungefiltert zurückgegeben
+                      return true;
+                    }
                 })
                 .map((val, key) => {
-                  const cost = calculateCost(val);
+                  const costForList = numberWithCommas(val.LiegKosten)
                   return (
                     <tr onClick={navigateToProperty(val)} key={key}>
                       <td id="liegBezeichnung">{val.LiegBezeichnung}</td>
@@ -583,7 +591,7 @@ const Home = () => {
                       <td id="liegAusbauS">{val.LiegAusbaustandard}</td>
                       <td id="liegBaujahr">{val.LiegBaujahr}</td>
                       <td id="liegZustand">{val.LiegZustand}</td>
-                      <td id="liegKosten">{cost}</td>
+                      <td id="liegKosten">{costForList}</td>
                     </tr>
                   );
                 })}
