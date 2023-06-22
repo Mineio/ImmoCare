@@ -169,7 +169,14 @@ button{
   padding-right: 60px;
 }
 
-.inputFields {
+.clickedProperty .inputFields{
+  margin: 2rem;
+  padding: 2rem;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.addProperty .inputFields {
   margin: 2rem;
   padding: 2rem;
   border-radius: 5px;
@@ -217,6 +224,12 @@ button{
 
 .clicked {
   background-color: red;
+}
+
+.clickedProperty{
+  display: flex;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
 .bezeichnung{
@@ -362,7 +375,7 @@ width: 70px;
   }
 
 .DeleteButton input{
-  background-image:url("./Ausrufezeichen.png") ;
+  background-image:url("./images/Ausrufezeichen.png") ;
   background-size: 25px;
   background-color: rgb(205, 99, 99);
   background-repeat:no-repeat ;

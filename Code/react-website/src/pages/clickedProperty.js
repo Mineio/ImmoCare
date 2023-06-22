@@ -50,7 +50,6 @@ const ClickedProperty = () => {
     updateData();
     window.location.replace("../home");
   };
-  function getBestätigung() {}
 
   const updateData = async () => {
     await Axios.put("http://localhost:3001/updateProperty", {
@@ -60,9 +59,26 @@ const ClickedProperty = () => {
     });
   };
 
+  const calculateYield = () => {
+    const elGetExpenses = document.getElementById("Ausgabe").value;
+    const elGetIncome = document.getElementById("Gewinn").value;
+    const elGetYeld = document.getElementById("costYield");
+    if(elGetExpenses !== "0" && elGetIncome !== "0" && elGetExpenses !== "" && elGetIncome !== ""){
+      const calculateYield = elGetIncome * 100 / elGetExpenses;
+      if(calculateYield >= 0 && parseInt(calculateYield) === 0){
+        elGetYeld.innerHTML = `Kosten Rendite: ≈ 0%`
+      } else {
+        elGetYeld.innerHTML = `Kosten Rendite: ${parseInt(calculateYield)}%`
+      }
+    } else {
+      elGetYeld.textContent = `Kosten Rendite: Keine gültigen Werte!`
+    }
+  }
+
   return (
     <div className="clickedProperty">
       <form className="inputFields">
+        <h1>Bearbeiten</h1>
         <div className="bezeichnung">
           <label htmlFor="LiegBezeichnung">Bezeichnung</label>
           <input type="text" id="LiegBezeichnung" />
@@ -153,6 +169,20 @@ const ClickedProperty = () => {
             <h3>Wirklich löschen?</h3>
             <p>Wollen Sie diese Liegenschaft wirklich löschen?</p>
           </Popup>
+        </div>
+      </form>
+      <form className="inputFields">
+        <h1>Renditerechner</h1>
+        <div>
+          <label htmlFor="Gewinn">Gewinn</label>
+          <input type="number" name="Gewinn" id="Gewinn" defaultValue="0" onChange={calculateYield}/>
+        </div>
+        <div>
+          <label htmlFor="Ausgabe">Eingesetztes Kapital</label>
+          <input type="number" name="Ausgabe" id="Ausgabe" defaultValue="0" onChange={calculateYield}/>
+        </div>
+        <div id="costYield">
+          Kosten Rendite: 0%
         </div>
       </form>
     </div>
