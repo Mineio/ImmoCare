@@ -24,6 +24,16 @@ app.get("/getProperties", (req, res) => {
   });
 });
 
+app.get("/getWohnungen", (req, res) => {
+  db.query("SELECT * FROM TWohnungen", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.delete("/deleteProperty/:LiegNR", (req, res) => {
   const LiegNR = req.params.LiegNR;
   db.query(
