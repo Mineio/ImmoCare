@@ -41,6 +41,7 @@ const Home = () => {
   const [suchbegriff, setSuchbegriff] = useState(
     getLocalStorageValue("suchbegriff", "")
   );
+  const [wohnungen, setwohnungen] = useState([]);
 
   useEffect(() => {
     selectProperties();
@@ -109,6 +110,12 @@ const Home = () => {
       setProperty(response.data);
     });
   };
+  const selectWohnungen = async () => {
+    await Axios.get("http://localhost:3001/getWohnungen").then((response) => {
+      setwohnungen(response.data);
+      console.log(response);
+    });
+  };
 
   const handleFilterReset = () => {
     const keysToRemove = [
@@ -155,9 +162,11 @@ const Home = () => {
   };
 
   const navigateToProperty = (clickedLiegenschaft) => {
-    return () => {
-      localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
-      window.location.replace("../clickedProperty");
+    return (event) => {
+      if (event.target.id !== "pfeil") {
+        localStorage.setItem("property", JSON.stringify(clickedLiegenschaft));
+        window.location.replace("../clickedProperty");
+      }
     };
   };
 
@@ -220,19 +229,19 @@ const Home = () => {
       cost += 500 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 26000 * anzZimm;
-    }else if (LiegTyp === "Reiheneinfamilienhaus") {
+    } else if (LiegTyp === "Reiheneinfamilienhaus") {
       cost += 480 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 26000 * flächeGrößterRaum;
-    }else if (LiegTyp === "Eigentumswohnung") {
+    } else if (LiegTyp === "Eigentumswohnung") {
       cost += 150 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 28000 * anzZimm;
-    }else if (LiegTyp === "Hof") {
+    } else if (LiegTyp === "Hof") {
       cost += 40 * LiegGrundstückfläche;
       cost += 900 * LiegNutzfläche;
       cost += 27000 * anzZimm;
-    }else if (LiegTyp === "Loft") {
+    } else if (LiegTyp === "Loft") {
       cost += 150 * LiegGrundstückfläche;
       cost += 2300 * LiegNutzfläche;
     }
@@ -249,7 +258,7 @@ const Home = () => {
       costRatio -= cost * 0.25;
     } else if (LiegZustand === "neuwertig") {
       costRatio += cost * 0.25;
-    } else if(LiegZustand === "renoviert"){
+    } else if (LiegZustand === "renoviert") {
       costRatio += cost * 0.1;
     }
 
@@ -259,6 +268,65 @@ const Home = () => {
 
     return numberWithCommas(cost);
   };
+  useEffect(() => {
+    selectWohnungen();
+  }, []);
+  function getWohnungen(event) {
+    const clickedTd = event.target;
+    const parentTr = clickedTd.parentNode;
+
+    const existingWohnungsTd = parentTr.querySelector(".wohnungs-td");
+    const randomIndex = Math.floor(Math.random() * 12) + 1;
+    clickedTd.classList.toggle("rotate");
+    if (existingWohnungsTd) {
+      existingWohnungsTd.remove();
+    } else {
+      const wohnungsTd = document.createElement("td");
+      wohnungsTd.classList.add("wohnungs-td");
+      wohnungsTd.setAttribute("colSpan", "9");
+
+      // Erstelle eine neue Tabelle für die Wohnungsdaten
+      const wohnungsTabelle = document.createElement("table");
+      const wohnungsThead = document.createElement("thead");
+      const wohnungsTbody = document.createElement("tbody");
+
+      const theadRow = document.createElement("tr");
+      const idTh = document.createElement("th");
+      const nameTh = document.createElement("th");
+      const flächeTh = document.createElement("th");
+
+      idTh.textContent = "Wohnbezeichnung";
+      nameTh.textContent = "Einnahmen";
+      flächeTh.textContent = "Ausgaben";
+
+      theadRow.appendChild(idTh);
+      theadRow.appendChild(nameTh);
+      theadRow.appendChild(flächeTh);
+      wohnungsThead.appendChild(theadRow);
+
+      for (let i = 0; i < randomIndex; i++) {
+        const wohnungRow = document.createElement("tr");
+        const idTd = document.createElement("td");
+        const nameTd = document.createElement("td");
+        const flächeTd = document.createElement("td");
+
+        idTd.textContent = wohnungen[randomIndex].WohnBezeichnung;
+        nameTd.textContent = wohnungen[randomIndex].WohnEinnahmen;
+        flächeTd.textContent = wohnungen[randomIndex].WohnAusgaben;
+
+        wohnungRow.appendChild(idTd);
+        wohnungRow.appendChild(nameTd);
+        wohnungRow.appendChild(flächeTd);
+        wohnungsTbody.appendChild(wohnungRow);
+      }
+
+      wohnungsTabelle.appendChild(wohnungsThead);
+      wohnungsTabelle.appendChild(wohnungsTbody);
+      wohnungsTd.appendChild(wohnungsTabelle);
+
+      parentTr.insertBefore(wohnungsTd, clickedTd.nextSibling);
+    }
+  }
 
   //Trennung für jede dritte Ziffer mit einem Hochkomma.
   function numberWithCommas(number) {
@@ -514,6 +582,7 @@ const Home = () => {
           <table>
             <thead>
               <tr>
+                <th>Wohnungen</th>
                 <th>Bezeichnung</th>
                 <th>Liegenschaftstyp</th>
                 <th>Nutzfläche</th>
@@ -576,6 +645,15 @@ const Home = () => {
                   const cost = calculateCost(val);
                   return (
                     <tr onClick={navigateToProperty(val)} key={key}>
+                      <td id="pfeil2">
+                        {val.LiegTyp === "Mehrfamilienhaus" && (
+                          <div
+                            className="pfeil"
+                            id="pfeil"
+                            onClick={getWohnungen}
+                          ></div>
+                        )}
+                      </td>
                       <td id="liegBezeichnung">{val.LiegBezeichnung}</td>
                       <td id="liegTyp">{val.LiegTyp}</td>
                       <td id="liegNutzfläche">{val.LiegNutzfläche}</td>
