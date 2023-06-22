@@ -60,10 +60,11 @@
 .searchbarTop{
   margin-top: 30px;
   display:flex;
+  align-items: center;
 }
 
 .searchbarTop div{
-  padding-right: 50px;
+  margin-right: 35px;
 }
 
 .searchbarTop div form{
@@ -73,13 +74,20 @@
 }
 
 .searchbarBottom{
-  margin-top: 20px;
+  margin-top: 45px;
   display:flex;
+ 
+  align-items: center;
 }
-
 .searchbarBottom div{
-  padding-right: 50px;
+  margin-right: 35px;
 }
+.searchbarBottom input, .searchbarBottom select{
+ width: 160px;
+}
+.searchbarTop input, .searchbarTop select{
+  width: 160px;
+ }
 
 .searchbarBottom div form{
   display:flex;
@@ -147,34 +155,6 @@ button{
   margin: 5px;
 }
 
-.app {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-}
-
-.container{
-  margin-top: 30px;
-  border-radius: 15px 15px 15px 15px;
-  background-color: #c6c9cf;
-  display: flex;
-  flex-direction: column;
-}
-.inputFieldsAdd input, .inputFieldsAdd select {
-  width: 400px;
-  padding: 15px;
-  margin: 15px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-  border-radius: 12px 12px 12px 12px;
-  text-align: left;
-}
-.inputFieldsAdd label{
-  margin-right: 30px;
-  font-size: 16px;
-  display: block;
-}
 
 #dropdown option { color: rgb(0, 0, 0); }
 .empty { color: rgb(169, 164, 164); }
@@ -188,12 +168,8 @@ button{
   float: right;
   padding-right: 60px;
 }
-.inputFieldsAdd{
-  width: 1000px;
-  padding-top: 20px;
-}
 
-.clickedProperty {
+.inputFields {
   margin: 2rem;
   padding: 2rem;
   border-radius: 5px;
@@ -201,21 +177,20 @@ button{
   margin-left: 30%;
 }
 
-.clickedProperty h1 {
+.inputFields h1 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.clickedProperty label {
+.inputFields label {
   display: block;
-  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.clickedProperty input, .clickedProperty select {
+.inputFields input, .inputFields select {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
@@ -223,16 +198,17 @@ button{
   border-radius: 5px;
 }
 
-.clickedProperty input:focus {
+.inputFields input:focus {
   outline: none;
   border: 1px solid #2ecc71;
 }
 
-.clickedProperty input[type="button"] {
+.inputFields input[type="button"] {
   border: 2px solid black;
   border-radius: 5px;
   cursor: pointer;
 }
+
 
 .clickedProperty input[type="button"]:not(.delete):hover {
   background-color: #98a69e;
@@ -258,6 +234,10 @@ button{
   margin: 0;
 }
 
+.inputFields div{
+  margin-top: 1%;
+}
+
 .rightSide {
   padding-left: 5px;
 }
@@ -267,12 +247,12 @@ input[id="LiegBaujahr"]::-webkit-inner-spin-button {
 }
 
 input[id="LiegNutzfläche"]::-webkit-inner-spin-button {
-  opacity: 0
+  opacity: 0;
 }
 
 .searchbox input[type="text"] {
   background-color: white;
-  background-image: url('./Lupe.png');
+  background-image: url('./images/Lupe.png');
   background-size: 10px;
   background-position: 5px 5px;
   background-repeat: no-repeat;
@@ -280,7 +260,7 @@ input[id="LiegNutzfläche"]::-webkit-inner-spin-button {
   height: 25px;
   width: 350px;
   border-radius: 12px 12px 12px 12px;
-  margin-top: 60px;
+  margin-top: 64px;
   margin-left: 10px;
 }
 .propertysearch{
